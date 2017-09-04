@@ -94,17 +94,17 @@
 
 
 
-<meta name="description" content="这是一个面向对象的问题讲解">
+<meta name="description" content="面向对象封装1. 封装成对象,减少全局变量的污染1234567891011121314//封装成一个对象,使所有li标签都变色//只使用了一个全局变量  var heiQuery = &amp;#123;    domByName: function (domName) &amp;#123;      return document.getElementsByTagName(domName);    &amp;#125;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="面向对象的设计">
+<meta property="og:title" content="面向对象-构造函数">
 <meta property="og:url" content="http://yoursite.com/2017/03/03/面向对象的设计/index.html">
 <meta property="og:site_name" content="蓝 海">
-<meta property="og:description" content="这是一个面向对象的问题讲解">
+<meta property="og:description" content="面向对象封装1. 封装成对象,减少全局变量的污染1234567891011121314//封装成一个对象,使所有li标签都变色//只使用了一个全局变量  var heiQuery = &amp;#123;    domByName: function (domName) &amp;#123;      return document.getElementsByTagName(domName);    &amp;#125;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-09-03T14:55:23.280Z">
+<meta property="og:updated_time" content="2017-09-04T13:11:29.098Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="面向对象的设计">
-<meta name="twitter:description" content="这是一个面向对象的问题讲解">
+<meta name="twitter:title" content="面向对象-构造函数">
+<meta name="twitter:description" content="面向对象封装1. 封装成对象,减少全局变量的污染1234567891011121314//封装成一个对象,使所有li标签都变色//只使用了一个全局变量  var heiQuery = &amp;#123;    domByName: function (domName) &amp;#123;      return document.getElementsByTagName(domName);    &amp;#125;">
 
 
 
@@ -139,7 +139,7 @@
 
 
 
-  <title>面向对象的设计 | 蓝 海</title>
+  <title>面向对象-构造函数 | 蓝 海</title>
   
 
 
@@ -289,7 +289,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">面向对象的设计</h1>
+          <h1 class="post-title" itemprop="name headline">面向对象-构造函数</h1>
         
 
         <div class="post-meta">
@@ -339,7 +339,47 @@
       
 
       
-        <p>这是一个面向对象的问题讲解</p>
+        <h2 id="面向对象封装"><a href="#面向对象封装" class="headerlink" title="面向对象封装"></a>面向对象封装</h2><h3 id="1-封装成对象-减少全局变量的污染"><a href="#1-封装成对象-减少全局变量的污染" class="headerlink" title="1. 封装成对象,减少全局变量的污染"></a>1. 封装成对象,减少全局变量的污染</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">//封装成一个对象,使所有li标签都变色</div><div class="line">//只使用了一个全局变量</div><div class="line">  var heiQuery = &#123;</div><div class="line">    domByName: function (domName) &#123;</div><div class="line">      return document.getElementsByTagName(domName);</div><div class="line">    &#125;,</div><div class="line">    becomeHotpink: function (eles) &#123;</div><div class="line">      for (var i = 0; i &lt; eles.length; i++) &#123;</div><div class="line">        eles[i].style.backgroundColor = &apos;hotpink&apos;;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  heiQuery.domByName();</div><div class="line">  heiQuery.becomeHotpink();</div></pre></td></tr></table></figure>
+<h3 id="2-创建对象的四种方式"><a href="#2-创建对象的四种方式" class="headerlink" title="2.创建对象的四种方式"></a>2.创建对象的四种方式</h3><ul>
+<li><p>使用字面量的方式创建</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var obj = &#123;</div><div class="line">    name:&quot;小明&quot;,</div><div class="line">    age:&quot;18&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>使用new关键字的方式.动态添加属性</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var person1 = new Object();</div><div class="line">person1.name = &apos;杨宗纬&apos;;</div><div class="line">person1.skill = &apos;吃洋葱&apos;;</div></pre></td></tr></table></figure>
+<ul>
+<li><p>工厂模式,传入参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function objectFactory(name, skill) &#123;</div><div class="line">  var obj = new Object();</div><div class="line">  obj.name = name;</div><div class="line">  obj.skill = skill;</div><div class="line">  return obj;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>使用构造函数的方式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function Person(name, skill) &#123;</div><div class="line">  this.name = name;</div><div class="line">  this.skill = skill;</div><div class="line">  // return 998;</div><div class="line">  // return &#123;name:&apos;黄鹤王八蛋&apos;,skill:&quot;带着小姨子跑啦&quot;&#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<ol>
+<li>注意使用构造函数时,return 基本数据类型时没有影响,返回复杂数据类型时,会覆盖new关键字创建的对象</li>
+<li><p>调用构造函数的过程<br> 创建了一个 对象<br> 把构造函数中的this 指向这个对象<br> 返回这个对象</p>
+</li>
+<li><p>当构造函数知识没有用new创建对象的时候,当做普通函数调用,this指代的是window</p>
+</li>
+</ol>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var p1 = new Person(&apos;jack&apos;,&apos;jump&apos;);</div><div class="line">//this指代的是先创建的person对象</div><div class="line">var p2 = Person(&apos;rose&apos;,&apos;炒青椒&apos;);</div><div class="line">//tihs指代window</div></pre></td></tr></table></figure>
+<h3 id="使用构造函数创建对象的缺点"><a href="#使用构造函数创建对象的缺点" class="headerlink" title="使用构造函数创建对象的缺点"></a>使用构造函数创建对象的缺点</h3><ul>
+<li>使用同一个构造函数创建的对象,对象中的方法指向不一致</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">function Person() &#123;</div><div class="line">  this.sayHi = function()&#123;</div><div class="line">    console.log(&apos;吃了没--(吃不吃我都不会请你吃)&apos;);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">var p1 = new Person();</div><div class="line">var p2 = new Person();</div><div class="line"></div><div class="line">console.log(p1.sayHi===p2.sayHi);//false</div></pre></td></tr></table></figure>
+<ul>
+<li>解决方案<blockquote>
+<p>在声明一个全局函数方法,让属性同时指向这个函数</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function sayHi()&#123;</div><div class="line">  console.log(&apos;how old are you&apos;);</div><div class="line">&#125;</div><div class="line">function Person() &#123;</div><div class="line">  this.sayHi = sayHi;</div><div class="line">&#125;</div><div class="line"> console.log(p1.sayHi===p2.sayHi);//true</div></pre></td></tr></table></figure>
+<blockquote>
+<p>缺点: 会产生多的全局变量</p>
+</blockquote>
 
       
     </div>
@@ -424,8 +464,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -440,7 +489,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -469,6 +518,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#面向对象封装"><span class="nav-number">1.</span> <span class="nav-text">面向对象封装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-封装成对象-减少全局变量的污染"><span class="nav-number">1.1.</span> <span class="nav-text">1. 封装成对象,减少全局变量的污染</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-创建对象的四种方式"><span class="nav-number">1.2.</span> <span class="nav-text">2.创建对象的四种方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用构造函数创建对象的缺点"><span class="nav-number">1.3.</span> <span class="nav-text">使用构造函数创建对象的缺点</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
