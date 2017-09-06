@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="原型继承的几种方式1. 混入继承(深复制和浅复制)123456789var richPerson = &amp;#123;  money:&apos;每天挣他一个亿&apos;,  skill:&apos;任性&apos;&amp;#125;;var normalPerson = &amp;#123;&amp;#125;;for(var k in richPerson)&amp;#123;    normalPerson[k] = richPerson[k];&amp;#125;co">
+<meta property="og:type" content="article">
+<meta property="og:title" content="继承的几种方式">
+<meta property="og:url" content="http://yoursite.com/2017/09/06/继承的几种方式/index.html">
+<meta property="og:site_name" content="蓝 海">
+<meta property="og:description" content="原型继承的几种方式1. 混入继承(深复制和浅复制)123456789var richPerson = &amp;#123;  money:&apos;每天挣他一个亿&apos;,  skill:&apos;任性&apos;&amp;#125;;var normalPerson = &amp;#123;&amp;#125;;for(var k in richPerson)&amp;#123;    normalPerson[k] = richPerson[k];&amp;#125;co">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-06T12:31:42.392Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="继承的几种方式">
+<meta name="twitter:description" content="原型继承的几种方式1. 混入继承(深复制和浅复制)123456789var richPerson = &amp;#123;  money:&apos;每天挣他一个亿&apos;,  skill:&apos;任性&apos;&amp;#125;;var normalPerson = &amp;#123;&amp;#125;;for(var k in richPerson)&amp;#123;    normalPerson[k] = richPerson[k];&amp;#125;co">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/09/06/继承的几种方式/"/>
+
+
+
+
+
+  <title>继承的几种方式 | 蓝 海</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">蓝 海</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">化身孤岛的蓝鲸</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-photo">
+          <a href="/photo/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-image"></i> <br />
+            
+            照片
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/06/继承的几种方式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="海 龙 王">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝 海">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">继承的几种方式</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-06T20:30:49+08:00">
+                2017-09-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="原型继承的几种方式"><a href="#原型继承的几种方式" class="headerlink" title="原型继承的几种方式"></a>原型继承的几种方式</h2><h3 id="1-混入继承-深复制和浅复制"><a href="#1-混入继承-深复制和浅复制" class="headerlink" title="1. 混入继承(深复制和浅复制)"></a>1. 混入继承(深复制和浅复制)</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> richPerson = &#123;</div><div class="line">  money:<span class="string">'每天挣他一个亿'</span>,</div><div class="line">  skill:<span class="string">'任性'</span></div><div class="line">&#125;;</div><div class="line"><span class="keyword">var</span> normalPerson = &#123;&#125;;</div><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> k <span class="keyword">in</span> richPerson)&#123;</div><div class="line">    normalPerson[k] = richPerson[k];</div><div class="line">&#125;</div><div class="line"><span class="built_in">console</span>.log(normalPerson);</div></pre></td></tr></table></figure>
+<blockquote>
+<p>这里需要区分浅复制和神赋值,当属性为基本数据类型是浅复制即可,如果为引用类型,那么就要深复制</p>
+</blockquote>
+<h3 id="2-原型继承"><a href="#2-原型继承" class="headerlink" title="2. 原型继承"></a>2. 原型继承</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">  <span class="keyword">var</span> superman = &#123;</div><div class="line">    skill:<span class="string">"fly"</span>,</div><div class="line">    clth:<span class="string">'穿着底裤乱跑'</span></div><div class="line">  &#125;;</div><div class="line">  <span class="comment">// 原型继承 需要定义构造函数</span></div><div class="line">  <span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>)</span>&#123;&#125;</div><div class="line">  </div><div class="line">  <span class="comment">// 这种方法 constructor 被覆盖了</span></div><div class="line">  <span class="comment">//直接赋值,construcotr被改变了</span></div><div class="line">  Person.prototype = superman;</div><div class="line">  <span class="keyword">var</span> p1 = <span class="keyword">new</span> Person();</div><div class="line"></div><div class="line">&gt; 使用最多的方式</div></pre></td></tr></table></figure>
+<h3 id="3-原型混入继承"><a href="#3-原型混入继承" class="headerlink" title="3. 原型混入继承"></a>3. 原型混入继承</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> poorPerson = &#123;</div><div class="line">  dream:<span class="string">'通过自己的努力,让自己爱的人 过得更好'</span>,</div><div class="line">  work:<span class="string">'提升自己的能力,通过自己的能力,获得更多的资源'</span>    </div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person2</span> (<span class="params"></span>)</span>&#123;&#125;</div><div class="line"></div><div class="line"><span class="comment">// 这种混入的方式 不会影响 constructor</span></div><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> k <span class="keyword">in</span> poorPerson)&#123;</div><div class="line">  Person2.prototype[k] = poorPerson[k];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> p3 = <span class="keyword">new</span> Person2();</div></pre></td></tr></table></figure>
+<h3 id="4-使用Object-creat方法"><a href="#4-使用Object-creat方法" class="headerlink" title="4. 使用Object.creat方法"></a>4. 使用Object.creat方法</h3><blockquote>
+<p>es5中支持的方法,需要考虑兼容性问题<br>更为经典的方法</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> dog =&#123;</div><div class="line">  bark:<span class="string">'嗷呜~~~~~'</span>,</div><div class="line">  food:<span class="string">'骨头'</span></div><div class="line">&#125;;</div><div class="line"><span class="comment">// ES 5中推出的</span></div><div class="line"><span class="keyword">var</span> littleDog = <span class="built_in">Object</span>.create(dog);</div></pre></td></tr></table></figure>
+<h3 id="Object-creat兼容性问题的处理"><a href="#Object-creat兼容性问题的处理" class="headerlink" title="Object.creat兼容性问题的处理"></a>Object.creat兼容性问题的处理</h3><blockquote>
+<p>方法的兼容性处理</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(!<span class="built_in">Object</span>.create)&#123;</div><div class="line">  <span class="comment">// 自己实现Create</span></div><div class="line">  <span class="function"><span class="keyword">function</span> <span class="title">Person</span> (<span class="params"></span>)</span>&#123;&#125;</div><div class="line">  Person.prototype = cat;</div><div class="line">  <span class="keyword">var</span> p = <span class="keyword">new</span> Person();</div><div class="line">&#125;<span class="keyword">else</span>&#123;</div><div class="line">  <span class="keyword">var</span> p = <span class="built_in">Object</span>.create(cat);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>自己实现一个Object.creat的方法</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(!<span class="built_in">Object</span>.create)&#123;</div><div class="line">  <span class="built_in">Object</span>.create = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>)</span>&#123;</div><div class="line">      <span class="function"><span class="keyword">function</span> <span class="title">F</span> (<span class="params"></span>)</span>&#123;&#125;;</div><div class="line">      F.prototype = obj;</div><div class="line">      <span class="keyword">return</span> <span class="keyword">new</span> F();</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">// 现在 一定可以使用的</span></div><div class="line"><span class="keyword">var</span> obj = <span class="built_in">Object</span>.create(cat);</div></pre></td></tr></table></figure>
+<blockquote>
+<p>但是这样存在一个问题,在Object上写得creat方法可以被任意修改,接下里就是如何安全的扩展内置对象</p>
+</blockquote>
+<h2 id="安全地扩展Array等内置对象"><a href="#安全地扩展Array等内置对象" class="headerlink" title="安全地扩展Array等内置对象"></a>安全地扩展Array等内置对象</h2><h3 id="1-直接扩展Array的原型"><a href="#1-直接扩展Array的原型" class="headerlink" title="1. 直接扩展Array的原型"></a>1. 直接扩展Array的原型</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Array</span>.prototype.sing = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'啊~!!@!哦～！～！＠～！２'</span>);</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> arr1 = <span class="keyword">new</span> <span class="built_in">Array</span>();</div><div class="line"> <span class="comment">// 这种扩展方法 还是会被别人 搞事情</span></div><div class="line"><span class="built_in">Array</span>.prototype.sing = <span class="string">'你猜我是谁呀?'</span>;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>很容易被修改</p>
+<h3 id="2-自己弄一个构造函数-继承于-内置对象"><a href="#2-自己弄一个构造函数-继承于-内置对象" class="headerlink" title="2. 自己弄一个构造函数 继承于 内置对象"></a>2. 自己弄一个构造函数 继承于 内置对象</h3></blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">XMArray</span>(<span class="params"></span>) </span>&#123;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 通过构造函数的原型,继承内置对象的所哟属性</span></div><div class="line">XMArray.prototype = [];</div><div class="line">XMArray.prototype.dance = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'动次打次'</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> myArr = <span class="keyword">new</span> XMArray();</div></pre></td></tr></table></figure>
+<blockquote>
+<p>这种方式只是使用构造函数XMArray具有这个方法,名字用自己的名字使用</p>
+<p>修改内置对象中的原型中的同名的属性不会出现问题</p>
+<p>为自己创建的构造函数的原型添加 自己想要扩展的属性,这种方法使用了同时使用了继承和原型的方法</p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/06/Function的使用/" rel="next" title="Function的使用">
+                <i class="fa fa-chevron-left"></i> Function的使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/06/原型链的理解/" rel="prev" title="原型链的理解">
+                原型链的理解 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="海 龙 王" />
+          <p class="site-author-name" itemprop="name">海 龙 王</p>
+           
+              <p class="site-description motion-element" itemprop="description">前端小白的成长晋级之路</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#原型继承的几种方式"><span class="nav-number">1.</span> <span class="nav-text">原型继承的几种方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-混入继承-深复制和浅复制"><span class="nav-number">1.1.</span> <span class="nav-text">1. 混入继承(深复制和浅复制)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-原型继承"><span class="nav-number">1.2.</span> <span class="nav-text">2. 原型继承</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-原型混入继承"><span class="nav-number">1.3.</span> <span class="nav-text">3. 原型混入继承</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-使用Object-creat方法"><span class="nav-number">1.4.</span> <span class="nav-text">4. 使用Object.creat方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Object-creat兼容性问题的处理"><span class="nav-number">1.5.</span> <span class="nav-text">Object.creat兼容性问题的处理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安全地扩展Array等内置对象"><span class="nav-number">2.</span> <span class="nav-text">安全地扩展Array等内置对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-直接扩展Array的原型"><span class="nav-number">2.1.</span> <span class="nav-text">1. 直接扩展Array的原型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-自己弄一个构造函数-继承于-内置对象"><span class="nav-number">2.2.</span> <span class="nav-text">2. 自己弄一个构造函数 继承于 内置对象</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">海 龙 王</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

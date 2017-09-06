@@ -273,6 +273,1286 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/06/原型的三角关系/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="海 龙 王">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝 海">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/06/原型的三角关系/" itemprop="url">原型的三角关系</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-06T20:34:05+08:00">
+                2017-09-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="原型的使用"><a href="#原型的使用" class="headerlink" title="原型的使用"></a>原型的使用</h2><ul>
+<li><h3 id="原型解决构造函数的缺点"><a href="#原型解决构造函数的缺点" class="headerlink" title="原型解决构造函数的缺点"></a>原型解决构造函数的缺点</h3></li>
+</ul>
+<ol>
+<li>使用原型的方式解决构造函数中中,新创建的对象的属性方法指向不一致的问题</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Animal</span>(<span class="params">name</span>) </span>&#123;</div><div class="line">  <span class="keyword">this</span>.name = name;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ol>
+<li>一般是把 希望创建出来的对象 共有的属性 添加到原型中</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//添加属性方法</span></div><div class="line">  Animal.prototype.bark = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.name + <span class="string">'在叫'</span>);</div><div class="line">  &#125;</div><div class="line">  <span class="comment">//重新复制一个对象</span></div><div class="line">    Animal.prototype = &#123;</div><div class="line">    bark: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">      <span class="built_in">console</span>.log(<span class="keyword">this</span>.name + <span class="string">'在叫'</span>);</div><div class="line">    &#125;,</div><div class="line">    eat: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">      <span class="built_in">console</span>.log(<span class="keyword">this</span>.name + <span class="string">'嘎嘣脆'</span>);</div><div class="line">    &#125;,</div><div class="line">    sleep: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">      <span class="built_in">console</span>.log(<span class="keyword">this</span>.name + <span class="string">'zzzZZZZ'</span>);</div><div class="line">    &#125;</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<ol>
+<li><p>我们如果 直接修改创建出来的对象的原型属性<br>并不会修改原型中的内容</p>
+</li>
+<li><p>注意:<br>   创建对象1时 构造函数的原型 可以被对象1使用如果我们修改了构造函数的原型指向在创建的对象指向了新的原型之前的对象1 还是指向原来的 原型 不会发生改变的</p>
+</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 为原型赋值</span></div><div class="line">CartoonPerson.prototype = &#123;</div><div class="line">  eatNoodle: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.name + <span class="string">'我开动了'</span>);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> person1 = <span class="keyword">new</span> CartoonPerson(<span class="string">'鸣人'</span>);</div><div class="line"></div><div class="line"><span class="comment">// 尝试 修改 原型中的内容</span></div><div class="line">CartoonPerson.prototype = &#123;</div><div class="line">  beat: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'咻咻咻!!跨拉库阿拉 稀里哗啦'</span>);</div><div class="line">  &#125;,</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> person2 = <span class="keyword">new</span> CartoonPerson(<span class="string">'佐助'</span>);</div><div class="line">   person2.beat();<span class="comment">//已经被修改</span></div><div class="line">  person1.eatNoodle();<span class="comment">//仍让可以使用</span></div></pre></td></tr></table></figure>
+<ul>
+<li><h3 id="proto属性"><a href="#proto属性" class="headerlink" title="proto属性"></a><strong>proto</strong>属性</h3></li>
+</ul>
+<ol>
+<li>先创建的对象会有一个<strong>proto</strong>属性,可以访问构造函数的原型</li>
+<li>不会通过新创建的原型去访问原型,之前es5<br>中不是官方语法,在es6中规范了,但是不建议使用<blockquote>
+<ul>
+<li>兼容性问题</li>
+<li>消耗性很大</li>
+</ul>
+</blockquote>
+</li>
+</ol>
+<ul>
+<li><h2 id="constructor属性"><a href="#constructor属性" class="headerlink" title="constructor属性"></a>constructor属性</h2></li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">Plant.prototype = &#123; </div><div class="line">  eatDumpling:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'好吃不过饺子'</span>);</div><div class="line">  &#125;,</div><div class="line">  <span class="comment">// 模仿jQuery的写法 重新制定 构 不添加 其实没有什么问题</span></div><div class="line">  <span class="comment">// 原本的 你中有我 我中有你的关系造函数</span></div><div class="line">  <span class="keyword">constructor</span>:Plant</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><h3 id="面向对象的三大特性"><a href="#面向对象的三大特性" class="headerlink" title="面向对象的三大特性"></a>面向对象的三大特性</h3></li>
+</ul>
+<ol>
+<li>封装性</li>
+<li>继承性</li>
+<li>多态性<blockquote>
+<ul>
+<li>由于js是弱类型的语言,没有多态的概念</li>
+<li>强类型: 定义变量时必须定义变量的类型,不同类型之间不同赋值</li>
+</ul>
+</blockquote>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/06/原型链的理解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="海 龙 王">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝 海">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/06/原型链的理解/" itemprop="url">原型链的理解</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-06T20:32:23+08:00">
+                2017-09-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="原型链的定义"><a href="#原型链的定义" class="headerlink" title="原型链的定义"></a>原型链的定义</h2><ol>
+<li>对象都有原型,原型也是对象,对象就会有原型的,这样一直延伸下去,就组成了原型链</li>
+<li>原型链的是有尽头的,尽头是Object.prototype,顶级对象为null</li>
+<li>从无到有(null-OBject的原型)</li>
+<li>制造对象的机器(Array,Number,String等)</li>
+<li>制造机器的机器(构造函数)<br><img src="http://mmbiz.qpic.cn/mmbiz_jpg/zPh0erYjkib3qzmYGpdYCFxhaD73XiatbiaoK7mia2oCAVgs4BWcLodHLYKcK50goIaPOdUIM4T5icj7PQTsJ95ZHJg/640?tp=webp&amp;wxfrom=5&amp;wx_lazy=1" alt="原型链图的解释"></li>
+</ol>
+<ul>
+<li><h2 id="鸡生蛋-蛋生鸡的问题"><a href="#鸡生蛋-蛋生鸡的问题" class="headerlink" title="鸡生蛋,蛋生鸡的问题"></a>鸡生蛋,蛋生鸡的问题</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Function</span>.__proto__ === <span class="built_in">Function</span>.prototype</div><div class="line"><span class="built_in">Object</span>作为一个机器可以看做是有由<span class="built_in">Function</span>制造出来的，而<span class="built_in">Function</span>作为一个对象可以看做是由<span class="built_in">Object</span>制造出来的。</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>注意在es6中引入了class类的概念,箭头函数只能表示普通函数,不能表示构造函数</p>
+</blockquote>
+<p><a href="http://mp.weixin.qq.com/s/8h-7pRKYNYex5hImZNgipQ" target="_blank" rel="external">原型链的原文解释</a></p>
+<h2 id="对象属性的查找顺序"><a href="#对象属性的查找顺序" class="headerlink" title="对象属性的查找顺序"></a>对象属性的查找顺序</h2><ol>
+<li>对象本身的属性就存在–&gt;直接使用自己的属性</li>
+<li>自己的属性中不存在,那就使用.<strong>proto</strong>去查找</li>
+<li>自己的原型中没有,那就沿着原型链继续向上查找</li>
+<li>顶部Object.prototype还是查找不到,就会报错</li>
+</ol>
+<h2 id="Object的原型常见的属性"><a href="#Object的原型常见的属性" class="headerlink" title="Object的原型常见的属性"></a>Object的原型常见的属性</h2><ol>
+<li><p>hasOwnProperty(),返回值是true或false</p>
+<blockquote>
+<p>检测对象自身是否存在某个属性,继承的属性不能检测, in 关键字可以检测对象的所有属性,包括继承的属性</p>
+</blockquote>
+</li>
+<li><p>isPrototypeOf,返回值false或者true</p>
+<blockquote>
+<p>检测对象a 是不是b的原型</p>
+</blockquote>
+</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">skill</span>)</span>&#123;</div><div class="line">    <span class="keyword">this</span>.skill = skill;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> p = <span class="keyword">new</span> Person(<span class="string">"修电脑"</span>);</div><div class="line"><span class="built_in">console</span>.log(Person.prototype.isPrototypeOf(p))<span class="comment">//true</span></div></pre></td></tr></table></figure>
+<ol>
+<li>propertyIsEnumerable ,属性能否被遍历</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> (<span class="keyword">var</span> k <span class="keyword">in</span> p) &#123;</div><div class="line">  <span class="built_in">console</span>.log(k);</div><div class="line">&#125;</div><div class="line"><span class="built_in">console</span>.log(p.propertyIsEnumerable(<span class="string">'skill'</span>));</div></pre></td></tr></table></figure>
+<ol>
+<li><p>toString,toLocaleString对象转化为字符串</p>
+<blockquote>
+<p>toString 本地的<br>toLocaleString本地化相关的,可以测试data</p>
+</blockquote>
+</li>
+<li><p>valueOf</p>
+<blockquote>
+<p>复杂数据类型跟普通数据类型进行运算时会调用 对象的 valueOf() 看看是否可以运算<br>如果还是不能运算 会接着调用 toSting()方法</p>
+</blockquote>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/06/继承的几种方式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="海 龙 王">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝 海">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/06/继承的几种方式/" itemprop="url">继承的几种方式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-06T20:30:49+08:00">
+                2017-09-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="原型继承的几种方式"><a href="#原型继承的几种方式" class="headerlink" title="原型继承的几种方式"></a>原型继承的几种方式</h2><h3 id="1-混入继承-深复制和浅复制"><a href="#1-混入继承-深复制和浅复制" class="headerlink" title="1. 混入继承(深复制和浅复制)"></a>1. 混入继承(深复制和浅复制)</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> richPerson = &#123;</div><div class="line">  money:<span class="string">'每天挣他一个亿'</span>,</div><div class="line">  skill:<span class="string">'任性'</span></div><div class="line">&#125;;</div><div class="line"><span class="keyword">var</span> normalPerson = &#123;&#125;;</div><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> k <span class="keyword">in</span> richPerson)&#123;</div><div class="line">    normalPerson[k] = richPerson[k];</div><div class="line">&#125;</div><div class="line"><span class="built_in">console</span>.log(normalPerson);</div></pre></td></tr></table></figure>
+<blockquote>
+<p>这里需要区分浅复制和神赋值,当属性为基本数据类型是浅复制即可,如果为引用类型,那么就要深复制</p>
+</blockquote>
+<h3 id="2-原型继承"><a href="#2-原型继承" class="headerlink" title="2. 原型继承"></a>2. 原型继承</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">  <span class="keyword">var</span> superman = &#123;</div><div class="line">    skill:<span class="string">"fly"</span>,</div><div class="line">    clth:<span class="string">'穿着底裤乱跑'</span></div><div class="line">  &#125;;</div><div class="line">  <span class="comment">// 原型继承 需要定义构造函数</span></div><div class="line">  <span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>)</span>&#123;&#125;</div><div class="line">  </div><div class="line">  <span class="comment">// 这种方法 constructor 被覆盖了</span></div><div class="line">  <span class="comment">//直接赋值,construcotr被改变了</span></div><div class="line">  Person.prototype = superman;</div><div class="line">  <span class="keyword">var</span> p1 = <span class="keyword">new</span> Person();</div><div class="line"></div><div class="line">&gt; 使用最多的方式</div></pre></td></tr></table></figure>
+<h3 id="3-原型混入继承"><a href="#3-原型混入继承" class="headerlink" title="3. 原型混入继承"></a>3. 原型混入继承</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> poorPerson = &#123;</div><div class="line">  dream:<span class="string">'通过自己的努力,让自己爱的人 过得更好'</span>,</div><div class="line">  work:<span class="string">'提升自己的能力,通过自己的能力,获得更多的资源'</span>    </div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person2</span> (<span class="params"></span>)</span>&#123;&#125;</div><div class="line"></div><div class="line"><span class="comment">// 这种混入的方式 不会影响 constructor</span></div><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> k <span class="keyword">in</span> poorPerson)&#123;</div><div class="line">  Person2.prototype[k] = poorPerson[k];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> p3 = <span class="keyword">new</span> Person2();</div></pre></td></tr></table></figure>
+<h3 id="4-使用Object-creat方法"><a href="#4-使用Object-creat方法" class="headerlink" title="4. 使用Object.creat方法"></a>4. 使用Object.creat方法</h3><blockquote>
+<p>es5中支持的方法,需要考虑兼容性问题<br>更为经典的方法</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> dog =&#123;</div><div class="line">  bark:<span class="string">'嗷呜~~~~~'</span>,</div><div class="line">  food:<span class="string">'骨头'</span></div><div class="line">&#125;;</div><div class="line"><span class="comment">// ES 5中推出的</span></div><div class="line"><span class="keyword">var</span> littleDog = <span class="built_in">Object</span>.create(dog);</div></pre></td></tr></table></figure>
+<h3 id="Object-creat兼容性问题的处理"><a href="#Object-creat兼容性问题的处理" class="headerlink" title="Object.creat兼容性问题的处理"></a>Object.creat兼容性问题的处理</h3><blockquote>
+<p>方法的兼容性处理</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(!<span class="built_in">Object</span>.create)&#123;</div><div class="line">  <span class="comment">// 自己实现Create</span></div><div class="line">  <span class="function"><span class="keyword">function</span> <span class="title">Person</span> (<span class="params"></span>)</span>&#123;&#125;</div><div class="line">  Person.prototype = cat;</div><div class="line">  <span class="keyword">var</span> p = <span class="keyword">new</span> Person();</div><div class="line">&#125;<span class="keyword">else</span>&#123;</div><div class="line">  <span class="keyword">var</span> p = <span class="built_in">Object</span>.create(cat);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>自己实现一个Object.creat的方法</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(!<span class="built_in">Object</span>.create)&#123;</div><div class="line">  <span class="built_in">Object</span>.create = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>)</span>&#123;</div><div class="line">      <span class="function"><span class="keyword">function</span> <span class="title">F</span> (<span class="params"></span>)</span>&#123;&#125;;</div><div class="line">      F.prototype = obj;</div><div class="line">      <span class="keyword">return</span> <span class="keyword">new</span> F();</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">// 现在 一定可以使用的</span></div><div class="line"><span class="keyword">var</span> obj = <span class="built_in">Object</span>.create(cat);</div></pre></td></tr></table></figure>
+<blockquote>
+<p>但是这样存在一个问题,在Object上写得creat方法可以被任意修改,接下里就是如何安全的扩展内置对象</p>
+</blockquote>
+<h2 id="安全地扩展Array等内置对象"><a href="#安全地扩展Array等内置对象" class="headerlink" title="安全地扩展Array等内置对象"></a>安全地扩展Array等内置对象</h2><h3 id="1-直接扩展Array的原型"><a href="#1-直接扩展Array的原型" class="headerlink" title="1. 直接扩展Array的原型"></a>1. 直接扩展Array的原型</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Array</span>.prototype.sing = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'啊~!!@!哦～！～！＠～！２'</span>);</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> arr1 = <span class="keyword">new</span> <span class="built_in">Array</span>();</div><div class="line"> <span class="comment">// 这种扩展方法 还是会被别人 搞事情</span></div><div class="line"><span class="built_in">Array</span>.prototype.sing = <span class="string">'你猜我是谁呀?'</span>;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>很容易被修改</p>
+<h3 id="2-自己弄一个构造函数-继承于-内置对象"><a href="#2-自己弄一个构造函数-继承于-内置对象" class="headerlink" title="2. 自己弄一个构造函数 继承于 内置对象"></a>2. 自己弄一个构造函数 继承于 内置对象</h3></blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">XMArray</span>(<span class="params"></span>) </span>&#123;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 通过构造函数的原型,继承内置对象的所哟属性</span></div><div class="line">XMArray.prototype = [];</div><div class="line">XMArray.prototype.dance = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'动次打次'</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> myArr = <span class="keyword">new</span> XMArray();</div></pre></td></tr></table></figure>
+<blockquote>
+<p>这种方式只是使用构造函数XMArray具有这个方法,名字用自己的名字使用</p>
+<p>修改内置对象中的原型中的同名的属性不会出现问题</p>
+<p>为自己创建的构造函数的原型添加 自己想要扩展的属性,这种方法使用了同时使用了继承和原型的方法</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/06/Function的使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="海 龙 王">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝 海">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/06/Function的使用/" itemprop="url">Function的使用</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-06T20:27:28+08:00">
+                2017-09-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="常见函数的三种方式"><a href="#常见函数的三种方式" class="headerlink" title="常见函数的三种方式"></a>常见函数的三种方式</h2><ol>
+<li>使用函数声明的方式</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span>(<span class="params">foodname</span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(foodname);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ol>
+<li>使用函数表达式的方式声明<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> eatNoodle = <span class="function"><span class="keyword">function</span>(<span class="params">noodleName</span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(noodleName);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<blockquote>
+<p>使用函数表达式的方式会存在变量提升的问题,注意变量声明会提升,但是变量的赋值不会提升</p>
+<ol>
+<li>使用对象实例化的方式</li>
+</ol>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> eatNoodle = <span class="keyword">new</span> <span class="built_in">Function</span>();</div></pre></td></tr></table></figure>
+<h2 id="构造函数Function如何设置形参"><a href="#构造函数Function如何设置形参" class="headerlink" title="构造函数Function如何设置形参"></a>构造函数Function如何设置形参</h2><ol>
+<li>如果只是想要设置 函数体 把函数体 作为 形参 传递给 Function</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> eatFruit = <span class="keyword">new</span> <span class="built_in">Function</span>(<span class="string">'alert("么么哒")'</span>);</div><div class="line"></div><div class="line">eatFruit();</div></pre></td></tr></table></figure>
+<ol>
+<li>传递一个参数的情况</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//第一个实参是创建函数的形参,最后一个实参是函数体</span></div><div class="line">  <span class="keyword">var</span> bigger = <span class="keyword">new</span> <span class="built_in">Function</span>(<span class="string">'a'</span>, <span class="string">'return a*2'</span>);</div><div class="line">  <span class="built_in">console</span>.log(bigger(<span class="number">2</span>));</div></pre></td></tr></table></figure>
+<ol>
+<li>传递多个参数<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 传递 多个参数</span></div><div class="line"><span class="keyword">var</span> sum = <span class="keyword">new</span> <span class="built_in">Function</span>(<span class="string">'num1'</span>, <span class="string">'num2'</span>, <span class="string">'num3'</span>, <span class="string">'return num1+num2+num3'</span>);</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(sum(<span class="number">6</span>, <span class="number">6</span>, <span class="number">6</span>));</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>总结:这样来声明函数比较麻烦,并且代码的可读性比较差,很少使用.</p>
+<h2 id="Function对象常见的属性"><a href="#Function对象常见的属性" class="headerlink" title="Function对象常见的属性"></a>Function对象常见的属性</h2><ol>
+<li>length 形参的个数</li>
+<li>name 函数的名字</li>
+<li>arguments函数调用是接受到的实参的个数<blockquote>
+<p>arguments是一个数组,可以获取传入实参</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">arguments</span>中的属性</div><div class="line">  <span class="number">1.</span>传入的实参列表</div><div class="line">  <span class="number">2.</span>callee 指向了 调用的 函数  -递归</div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ol>
+<p>4.caller</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">函数 在哪个函数中 被调用 返回的是谁</div><div class="line">如果直接是在全局环境中调用的 那么为 <span class="literal">null</span></div><div class="line">作用是 自己 调用 自己-- 递归</div><div class="line">主要用在 匿名函数的 递归上</div></pre></td></tr></table></figure>
+<ol>
+<li>anguments的实际使用</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  <span class="comment">// Person.arguments 通说 Person对象访问的属性</span></div><div class="line">  <span class="built_in">console</span>.log(Person.arguments);</div><div class="line">  <span class="comment">// arguments 在函数中直接访问的是 js中 默认预定义的一个 变量</span></div><div class="line">  <span class="built_in">console</span>.log(<span class="built_in">arguments</span>);</div><div class="line">  <span class="comment">// 虽然值是一样的 但是 它俩并不是同一个对象</span></div><div class="line">  <span class="built_in">console</span>.log(Person.arguments===<span class="built_in">arguments</span>);</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> p = <span class="keyword">new</span> Person(<span class="string">'修电脑'</span>,<span class="string">'西兰花炒蛋'</span>,<span class="string">'女朋友'</span>,<span class="string">'男朋友'</span>);</div></pre></td></tr></table></figure>
+<p>问题: 这里会问到这两者的不同点,不是同一个对象,一个是原型访问到的属性另外一个是js中内置的自定义变量,虽然他们的值相同</p>
+<h2 id="anguments-callee与caller的区别"><a href="#anguments-callee与caller的区别" class="headerlink" title="anguments.callee与caller的区别"></a>anguments.callee与caller的区别</h2><ol>
+<li><p>anguments.callee指向了调用的函数,在那个函数中,指向了自身,多使用在递归当中 </p>
+</li>
+<li><p>caller指向的函数调用的外层函数</p>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/06/递归和缓存/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="海 龙 王">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝 海">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/06/递归和缓存/" itemprop="url">递归和缓存</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-06T20:25:34+08:00">
+                2017-09-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>##递归</p>
+<h3 id="递归的定义"><a href="#递归的定义" class="headerlink" title="递归的定义"></a>递归的定义</h3><ol>
+<li>函数内部自己调用自己</li>
+<li>必须设置结束递归的条件,不然就是死循环</li>
+</ol>
+<h3 id="递归的基本使用"><a href="#递归的基本使用" class="headerlink" title="递归的基本使用"></a>递归的基本使用</h3><blockquote>
+<p>设计到动态规划,贪心算法的思想</p>
+</blockquote>
+<ol>
+<li>计算1-n的和</li>
+<li>计算n的阶乘</li>
+<li>计算n的m次方</li>
+<li>10级楼梯,每次走1或2级,有多少种走法的问题<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 求 数字1 到 n的和</span></div><div class="line"><span class="keyword">var</span> sum =<span class="number">0</span>;</div><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>;i&lt;=<span class="number">100</span>;i++)&#123;</div><div class="line">  sum +=i;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum2</span> (<span class="params">n</span>)</span>&#123;</div><div class="line">  <span class="keyword">if</span>(n==<span class="number">1</span>)&#123;<span class="keyword">return</span> <span class="number">1</span>&#125;;</div><div class="line">  <span class="keyword">return</span> sum2(n<span class="number">-1</span>)+n;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="递归问题解决斐波那契数列"><a href="#递归问题解决斐波那契数列" class="headerlink" title="递归问题解决斐波那契数列"></a>递归问题解决斐波那契数列</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">result</span>(<span class="params">n</span>) </span>&#123;</div><div class="line">  <span class="keyword">if</span> (n == <span class="number">1</span> || n == <span class="number">2</span>) &#123;</div><div class="line">    <span class="keyword">return</span> <span class="number">1</span>;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> result(n - <span class="number">1</span>) + result(n - <span class="number">2</span>);</div><div class="line">  <span class="comment">// return result(n - 1) + result(n - 2) + result(n - 3);</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="递归获取某个元素的所有后代元素"><a href="#递归获取某个元素的所有后代元素" class="headerlink" title="递归获取某个元素的所有后代元素"></a>递归获取某个元素的所有后代元素</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getendLessHD</span>(<span class="params">ele</span>) </span>&#123;</div><div class="line">  <span class="comment">// 子代  </span></div><div class="line">  <span class="keyword">var</span> children = ele.children;</div><div class="line">  <span class="comment">// 循环子代</span></div><div class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; children.length; i++) &#123;</div><div class="line">    <span class="comment">//  获取当前循环的子代</span></div><div class="line">    <span class="keyword">var</span> currentChild = children[i];</div><div class="line">    <span class="comment">//  添加到数组中</span></div><div class="line">    total.push(currentChild);</div><div class="line">    <span class="comment">// 如果当前循环的这个dom元素 还有子代</span></div><div class="line">    getendLessHD(currentChild);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">getendLessHD(<span class="built_in">document</span>.body);</div></pre></td></tr></table></figure>
+<h2 id="anguments-callee在递归中的使用"><a href="#anguments-callee在递归中的使用" class="headerlink" title="anguments.callee在递归中的使用"></a>anguments.callee在递归中的使用</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">func1</span> (<span class="params"></span>)</span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'我被调用了'</span>);</div><div class="line">  <span class="comment">// func1();</span></div><div class="line">  <span class="comment">//使用angular.callee指向的是函数本身</span></div><div class="line">  <span class="built_in">arguments</span>.callee();</div><div class="line">&#125;</div><div class="line"><span class="comment">// func1(1,2,3);</span></div><div class="line"></div><div class="line"><span class="keyword">var</span> func = func1;</div><div class="line"><span class="comment">//func1被修改了,内存中的指向被修改了</span></div><div class="line">func1 = <span class="string">'么么哒'</span>;</div><div class="line">func();</div></pre></td></tr></table></figure>
+<h2 id="缓存问题"><a href="#缓存问题" class="headerlink" title="缓存问题"></a>缓存问题</h2><ol>
+<li>浏览器的缓存</li>
+<li>数据的缓存<blockquote>
+<p>自己实现数据的缓存机制</p>
+</blockquote>
+</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">  <span class="function"><span class="keyword">function</span> <span class="title">createCache_06</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="comment">// 最大的保存数量</span></div><div class="line">    <span class="keyword">var</span> maxCount = <span class="number">3</span>;</div><div class="line">    <span class="comment">// 保存键</span></div><div class="line">    <span class="keyword">var</span> keys = [];</div><div class="line">    <span class="comment">// 返回</span></div><div class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">key, value</span>) </span>&#123;</div><div class="line">      <span class="comment">// 如果传入了 value 那么走保存逻辑</span></div><div class="line">      <span class="keyword">if</span> (value) &#123;</div><div class="line">        <span class="built_in">arguments</span>.callee[key] = value;</div><div class="line">        <span class="keyword">if</span> (keys.push(key) &gt; maxCount) &#123;</div><div class="line">          <span class="comment">// 越界了 删除数组中的第一个</span></div><div class="line">          <span class="comment">//delete用来删除对象的属性</span></div><div class="line">          <span class="keyword">delete</span> <span class="built_in">arguments</span>.callee[keys.shift()];</div><div class="line">        &#125;</div><div class="line">      &#125; <span class="comment">// 否则 走读取的逻辑 </span></div><div class="line">      <span class="keyword">else</span> &#123;</div><div class="line">        <span class="keyword">return</span> <span class="built_in">arguments</span>.callee[key];</div><div class="line">      &#125;</div><div class="line">    &#125;;</div><div class="line">  &#125;</div><div class="line"><span class="comment">//调用检测</span></div><div class="line">creatCache()(<span class="string">"音乐"</span>,<span class="string">"200"</span>);</div></pre></td></tr></table></figure>
+<blockquote>
+<p>jquery中的缓存机制</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// ------ 学习 jQuery的缓存机制 ------</span></div><div class="line"><span class="comment">// 添加空格的目的 是为了避免跟 函数默认的 属性名 冲突</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">createCache</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> keys = [];</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">function</span> <span class="title">cache</span>(<span class="params">key, value</span>) </span>&#123;</div><div class="line">    <span class="comment">// Use (key + " ") to avoid collision with native prototype properties (see Issue #157)</span></div><div class="line">    <span class="keyword">if</span> (keys.push(key + <span class="string">" "</span>) &gt; <span class="number">50</span>) &#123;</div><div class="line">      <span class="comment">// Only keep the most recent entries</span></div><div class="line">      <span class="keyword">delete</span> cache[keys.shift()];</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> (cache[key + <span class="string">" "</span>] = value);</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> cache;</div><div class="line">&#125;</div><div class="line"></div><div class="line">cache(<span class="string">'name'</span>,<span class="string">'萌萌哒'</span>);</div></pre></td></tr></table></figure>
+<h2 id="使用缓存的问题解决斐波那契数列的性能消耗问题"><a href="#使用缓存的问题解决斐波那契数列的性能消耗问题" class="headerlink" title="使用缓存的问题解决斐波那契数列的性能消耗问题"></a>使用缓存的问题解决斐波那契数列的性能消耗问题</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 创建缓存</span></div><div class="line"><span class="keyword">var</span> resultCache = createCache_06();</div><div class="line"><span class="keyword">var</span> count = <span class="number">0</span>;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">result</span>(<span class="params">n</span>) </span>&#123;</div><div class="line">    count++;</div><div class="line">    <span class="comment">// 从缓存中取</span></div><div class="line">    <span class="keyword">var</span> num = resultCache(n);</div><div class="line">    <span class="keyword">if</span> (!num) &#123;</div><div class="line">        <span class="keyword">if</span> (n == <span class="number">1</span> || n == <span class="number">2</span>) &#123;</div><div class="line">            <span class="comment">// return 1;把返回值保存到缓存中</span></div><div class="line">            num = <span class="number">1</span>;</div><div class="line">            resultCache(n, num);</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            num = result(n<span class="number">-2</span>) + result(n<span class="number">-1</span>);</div><div class="line">            <span class="comment">// num = result(n - 2) + result(n - 1);</span></div><div class="line">            resultCache(n, num);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> num;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ol>
+<li>这里最小的缓存值可以为2,但是根据运算规则需要先计算n-2,再计算n-1,否则存值有问题</li>
+<li>固定的递归调用次数为n*2-3</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/06/作用域问题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="海 龙 王">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝 海">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/06/作用域问题/" itemprop="url">作用域问题</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-06T20:24:00+08:00">
+                2017-09-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="作用域链的定义"><a href="#作用域链的定义" class="headerlink" title="作用域链的定义"></a>作用域链的定义</h2><blockquote>
+<p>函数能够创建作用域函数中 可以继续声明函数函数能能够创建作用函数中 可以继续声明函数根据这种关系创建出来的 层层叠叠的 作用域的 链式结构 称之为 作用域链</p>
+</blockquote>
+<h2 id="静态作用域-词法作用域"><a href="#静态作用域-词法作用域" class="headerlink" title="静态作用域(词法作用域)"></a>静态作用域(词法作用域)</h2><blockquote>
+<p>函数中变量的值只是跟函数定义的位置有关,核函数调用的位置无关</p>
+</blockquote>
+<h2 id="变量提升-特殊情况-的问题"><a href="#变量提升-特殊情况-的问题" class="headerlink" title="变量提升(特殊情况)的问题"></a>变量提升(特殊情况)的问题</h2><ol>
+<li>函数同名<blockquote>
+<p>会指向最后一个,因为会被覆盖</p>
+</blockquote>
+</li>
+<li>变量与函数同名<blockquote>
+<p>只提升函数声明,不提升变量声明</p>
+</blockquote>
+</li>
+<li>变量提升是有作用域的</li>
+<li>变量提升是分段的,不能跨越script标签进行变量提升</li>
+<li>函数表达式中,声明会被提升,但是函数的赋值不会被提升</li>
+<li>条件式函数声明<blockquote>
+<p>不会直接提升变量声明,而是把函数当做变量名提升</p>
+</blockquote>
+</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (animal == <span class="string">'狗'</span>) &#123;</div><div class="line">  bark = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'嗷呜!!~~~!~!~!'</span>);</div><div class="line">  &#125;</div><div class="line">&#125; <span class="keyword">else</span> &#123;</div><div class="line">  bark = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'喵~!~!~!~!'</span>);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">bark();</div></pre></td></tr></table></figure>
+<h2 id="变量提升面试题"><a href="#变量提升面试题" class="headerlink" title="变量提升面试题"></a>变量提升面试题</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Foo</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  getName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    alert(<span class="number">1</span>);</div><div class="line">  &#125;;</div><div class="line">  <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Foo.getName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  alert(<span class="number">2</span>);</div><div class="line">&#125;;</div><div class="line">Foo.prototype.getName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  alert(<span class="number">3</span>);</div><div class="line">&#125;;</div><div class="line"><span class="keyword">var</span> getName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  alert(<span class="number">4</span>);</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getName</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  alert(<span class="number">5</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 提升之后的</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getName</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  alert(<span class="number">5</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Foo</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  getName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    alert(<span class="number">1</span>);</div><div class="line">  &#125;;</div><div class="line">  <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Foo.getName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  alert(<span class="number">2</span>);</div><div class="line">&#125;;</div><div class="line">Foo.prototype.getName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  alert(<span class="number">3</span>);</div><div class="line">&#125;;</div><div class="line"><span class="keyword">var</span> getName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  alert(<span class="number">4</span>);</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">// getName -- 5--&gt;4--&gt;1</span></div><div class="line"><span class="comment">// Foo构造函数 ---1</span></div><div class="line"><span class="comment">// 属性getName  ---2</span></div><div class="line"><span class="comment">// 原型 --- 3</span></div></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/06/上下文调用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="海 龙 王">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝 海">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/06/上下文调用/" itemprop="url">上下文调用</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-06T20:17:34+08:00">
+                2017-09-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="数组循环的两种方式"><a href="#数组循环的两种方式" class="headerlink" title="数组循环的两种方式"></a>数组循环的两种方式</h2><ol>
+<li>forEach</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 回调函数的参数</span></div><div class="line"><span class="comment">// 1.当前循环的元素</span></div><div class="line"><span class="comment">// 2.当前循环元素的 索引</span></div><div class="line"><span class="comment">// 3.当前循环的 数组</span></div><div class="line"><span class="comment">//无返回值</span></div><div class="line">cartoonArr.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">value,index,arr</span>)</span>&#123;</div><div class="line">  <span class="comment">// console.log('我被执行了');</span></div><div class="line">  <span class="built_in">console</span>.log(value,index,arr);</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<blockquote>
+<p>由于forEach是es6新增的语法,因此在使用上会存在一定的兼容性问题,自己实现一个forEach的方法</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Array</span>.prototype.myForEach = <span class="function"><span class="keyword">function</span>(<span class="params">callback</span>)</span>&#123;</div><div class="line">  <span class="comment">// console.log('myForEach');</span></div><div class="line">  <span class="keyword">for</span>(<span class="keyword">var</span> i =<span class="number">0</span>;i&lt;<span class="keyword">this</span>.length;i++)&#123;</div><div class="line">    callback(<span class="keyword">this</span>[i],i,<span class="keyword">this</span>);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ol>
+<li>Map方法</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> result = priceArr.map(<span class="function"><span class="keyword">function</span> (<span class="params">value, index, arr</span>) </span>&#123;</div><div class="line"></div><div class="line">  <span class="keyword">return</span> (value + <span class="string">''</span>);</div><div class="line">&#125;)</div><div class="line"><span class="built_in">console</span>.log(result);</div></pre></td></tr></table></figure>
+<blockquote>
+<p>存在兼容自己实现</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 自己实现一个 map方法 通过数组的 实例对象调用</span></div><div class="line"><span class="built_in">Array</span>.prototype.myMap = <span class="function"><span class="keyword">function</span> (<span class="params">callBack</span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> newArr = [];</div><div class="line">  <span class="comment">// 循环数组</span></div><div class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="keyword">this</span>.length; i++) &#123;</div><div class="line">    <span class="keyword">var</span> back = callBack(<span class="keyword">this</span>[i], i, <span class="keyword">this</span>);</div><div class="line">    newArr.push(back);</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> newArr;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="函数调用时this的指向"><a href="#函数调用时this的指向" class="headerlink" title="函数调用时this的指向"></a>函数调用时this的指向</h2><ol>
+<li>直接调用<blockquote>
+<p>this指代的是window</p>
+</blockquote>
+</li>
+<li>作为对象的属性进行调用<blockquote>
+<p>this指代的是调用的对象</p>
+</blockquote>
+</li>
+<li>构造函数调用<blockquote>
+<p>this指向的实例化的对象</p>
+</blockquote>
+</li>
+<li>变态面试题</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 能不能调用? --可以</span></div><div class="line"><span class="comment">// this 是谁? -- obj</span></div><div class="line"><span class="keyword">var</span> obj =&#123;&#125;;</div><div class="line">obj[&#123;&#125;] = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>);</div><div class="line">&#125;</div><div class="line">obj[&#123;&#125;]();</div><div class="line">obj[<span class="string">'[object Object]'</span>]();</div><div class="line"><span class="comment">// 对象不能直接作为key </span></div><div class="line"><span class="comment">// 调用对象的 toString方法</span></div><div class="line"><span class="keyword">var</span> obj2 = &#123;&#125;</div><div class="line"><span class="built_in">console</span>.log(obj2.toString());</div></pre></td></tr></table></figure>
+<h2 id="上下文调用模式"><a href="#上下文调用模式" class="headerlink" title="上下文调用模式"></a>上下文调用模式</h2><ol>
+<li>改变this的指向,改变调用者的不同</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum</span> (<span class="params">a,b</span>)</span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>);</div><div class="line">  <span class="keyword">return</span> a+b;</div><div class="line">&#125;</div><div class="line"><span class="built_in">console</span>.log(sum(<span class="number">2</span>,<span class="number">998</span>));</div><div class="line"></div><div class="line"><span class="comment">// call 方法 如果要传递参数 给 函数 直接在 第二个参数开始 依次往后写即可</span></div><div class="line"><span class="built_in">console</span>.log(sum.call(&#123;<span class="attr">name</span>:<span class="string">'老司机'</span>&#125;,<span class="number">6</span>,<span class="number">660</span>));</div><div class="line"><span class="comment">// apply 方法 如果要传递 参数 给函数 直接在第二个参数传入 数组 伪数组即可</span></div><div class="line"><span class="built_in">console</span>.log(sum.apply(&#123;<span class="attr">name</span>:<span class="string">'老司机'</span>&#125;,[<span class="number">8</span>,<span class="number">880</span>]));</div></pre></td></tr></table></figure>
+<ol>
+<li>注意点</li>
+</ol>
+<ul>
+<li>调用 call/apply方法时,如果不传入任何的参数 this 指向的是?—&gt;window</li>
+<li>调用 call/apply方法时,传入的如果是值类型,会被包装为对应的引用类型?</li>
+<li>调用 call/apply方法时,传入的如果是 null undefined 指向window</li>
+</ul>
+<ol>
+<li>上下文模式的使用<blockquote>
+<p>数据类型检测时,数组和对象使用typeof检测时,返回值都是object,这里使用上下问调用模式来检测</p>
+</blockquote>
+</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> arr = [];</div><div class="line">arr.toString();<span class="comment">//""</span></div><div class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">4</span>];</div><div class="line">arr.toString()<span class="comment">//1,2,3</span></div><div class="line">数组的原型中本身就是存在toString方法的</div><div class="line">所有<span class="built_in">Array</span>.prototype的toString方法和<span class="built_in">Object</span>.toString方法是不一样的</div><div class="line"></div><div class="line"> <span class="built_in">console</span>.log(<span class="built_in">Object</span>.prototype.toString.call(arr));</div></pre></td></tr></table></figure>
+<ol>
+<li>自己实现数据检测的方法</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Object</span>.prototype.myHahahatoString = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> result = <span class="string">''</span>;</div><div class="line">  result += <span class="string">'['</span>;</div><div class="line">  result += (<span class="keyword">typeof</span> <span class="keyword">this</span>);</div><div class="line">  result += <span class="string">' '</span>;</div><div class="line">  result += <span class="keyword">this</span>.__proto__.constructor.name;</div><div class="line">  result += <span class="string">']'</span></div><div class="line">  <span class="built_in">console</span>.log(result);</div><div class="line">  <span class="keyword">return</span> result;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ol>
+<li>利用上下文调用中apply方法可以传入伪数组或者数组的特性,简化代码,注意一定要传入第一个参数最为自己本身</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> realArr2 = [];</div><div class="line"><span class="comment">// apply这种方法调用是 第二个参数 如果是 伪数组,数组 会把 元素 挨个 传递到 调用的方法的 参数中</span></div><div class="line"><span class="comment">// 这里的作用是 把 fakeArr的元素 挨个放到 push的 参数中 简化 操作</span></div><div class="line">realArr2.push.apply(realArr2,fakeArr);</div><div class="line"><span class="built_in">console</span>.log(realArr2);</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 求数组最大值</span></div><div class="line"><span class="keyword">var</span> numArr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">12</span>,<span class="number">6</span>,<span class="number">2</span>,<span class="number">30</span>];</div><div class="line"></div><div class="line"><span class="comment">// 如何获取最大值</span></div><div class="line"><span class="built_in">console</span>.log(<span class="built_in">Math</span>.max(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>));</div><div class="line"><span class="comment">// 能够在调用 Math.max时 挨个传入 numArr的元素</span></div><div class="line"><span class="built_in">console</span>.log(<span class="built_in">Math</span>.max.apply(<span class="built_in">Math</span>,numArr));</div></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/06/闭包知识讲解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="海 龙 王">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝 海">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/06/闭包知识讲解/" itemprop="url">闭包知识讲解</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-06T20:16:35+08:00">
+                2017-09-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="eval"><a href="#eval" class="headerlink" title="eval"></a>eval</h2><ol>
+<li>调用eval()方法,将传入的字符串解析为js代码,并且在eval的位置运行\</li>
+<li>第一步将字符串解析为js代码</li>
+<li>运行js代码</li>
+<li>在使用输入框中不要使用eval方法,恶意输入破坏性的代码,/ XSS 跨站脚本攻击  web前端安全 </li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">eval</span>(<span class="string">'var a =10'</span>);</div><div class="line"><span class="built_in">console</span>.log(a);</div></pre></td></tr></table></figure>
+<h2 id="eval的用途"><a href="#eval的用途" class="headerlink" title="eval的用途"></a>eval的用途</h2><ol>
+<li>用来解析js代码,兼容低版本的ie<blockquote>
+<p>如何解决低版本的ie中JSON.parse无法使用<br>1.导入JSON2.js </p>
+</blockquote>
+</li>
+</ol>
+<blockquote>
+<p><a href="">json2的下载地址</a></p>
+<p>2.eval()方法</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> result2= <span class="built_in">eval</span>(<span class="string">'('</span> + JSONString + <span class="string">')'</span>);</div><div class="line"><span class="built_in">console</span>.log(result2);</div></pre></td></tr></table></figure>
+<h2 id="闭包的实际应用"><a href="#闭包的实际应用" class="headerlink" title="闭包的实际应用"></a>闭包的实际应用</h2><blockquote>
+<p>函数分割作用域,在函数内部声明的函数,在外部进行调用就是闭包<br><a href="http://mp.weixin.qq.com/s/yDE3vnKJ9kp4SCZiMCPHow" target="_blank" rel="external">闭包的详细讲解</a></p>
+<ol>
+<li>闭包解决点击事件的问题</li>
+</ol>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 绑定点击事件</span></div><div class="line"><span class="keyword">var</span> liList = <span class="built_in">document</span>.querySelectorAll(<span class="string">'li'</span>);</div><div class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; liList.length; i++) &#123;</div><div class="line">  <span class="comment">// js中没有块级作用域 所有 最终 点击时 访问的都是全局的 i 而 i已经变为20了</span></div><div class="line">  <span class="function"><span class="keyword">function</span> <span class="title">outter</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> currentI = i;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">inner</span>(<span class="params"></span>) </span>&#123;</div><div class="line">      <span class="built_in">console</span>.log(currentI);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> inner;</div><div class="line">  &#125;</div><div class="line">  <span class="comment">// 返回inner 让外部使用</span></div><div class="line">  <span class="keyword">var</span> inner = outter();</div><div class="line">  liList[i].onclick = inner;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ol>
+<li>定时器的优化</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 需求 1秒之后 分别打印 0 - 19</span></div><div class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">20</span>; i++) &#123;</div><div class="line">  <span class="comment">// 闭包解决</span></div><div class="line">  <span class="function"><span class="keyword">function</span> <span class="title">outter</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> currentI = i;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">inner</span>(<span class="params"></span>) </span>&#123;</div><div class="line">      <span class="built_in">console</span>.log(currentI);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> inner;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="keyword">var</span> inner = outter();</div><div class="line"></div><div class="line">  <span class="comment">// setTimeout(function () &#123;</span></div><div class="line">  <span class="comment">//   console.log(i);</span></div><div class="line">  <span class="comment">// &#125;, 1000);</span></div><div class="line">  setTimeout(inner, <span class="number">1000</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/05/hexo使用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -346,13 +1626,12 @@
           
             <h1 id="Hexo-博客生成器"><a href="#Hexo-博客生成器" class="headerlink" title="Hexo 博客生成器"></a>Hexo 博客生成器</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Hexo是1个工具,可以快速的将markdown文件转换为一个博客网站.</div></pre></td></tr></table></figure>
 <ul>
-<li><a href="https://hexo.io/" target="_blank" rel="external">Hexo官网</a></li>
+<li><a href="https://hexo.io/" target="_blank" rel="external">hexo官网</a></li>
 <li>台湾人开发. 有比较详尽的中文文档.</li>
 <li>hexo是基于nodejs开发的一个工具.</li>
 </ul>
 <h2 id="1-简单使用"><a href="#1-简单使用" class="headerlink" title="1. 简单使用"></a>1. 简单使用</h2><ul>
-<li><p>使用npm工具全局安装hexo环境</p>
-<ul>
+<li>使用npm工具全局安装hexo环境<ul>
 <li><code>npm install hexo-cli -g</code><ul>
 <li>cli  –commandline 命令行. ping npm 命令行软件 只能依赖于cmd运行</li>
 <li>gui 图形界面.</li>
@@ -361,36 +1640,25 @@
 <li>使用hexo -v查看hexo的版本 如果有显示版本 则说明安装成功.</li>
 </ul>
 </li>
-<li><p>初始化博客目录</p>
-<ul>
+<li>初始化博客目录<ul>
 <li>在需要创建博客的目录下.</li>
 <li><code>hexo init myBlog</code>   </li>
 <li>会在当前目录下创建1个myBlog文件夹. 并联网下载一些初始化文件</li>
 <li>初始化1个本地仓库 然后从1个仓库中克隆文件到我们的目录下.</li>
 </ul>
 </li>
-<li><p>启动服务</p>
-<ul>
+<li>启动服务<ul>
 <li><code>hexo server</code></li>
 <li>打开提示的网页地址 就可以看见博客页面</li>
 </ul>
-<hr>
-<p>​</p>
 </li>
 </ul>
 <h2 id="2-发表新文章"><a href="#2-发表新文章" class="headerlink" title="2.发表新文章"></a>2.发表新文章</h2><ul>
-<li><p>使用命令来发表新文章</p>
-</li>
-<li><p><code>hexo new 学习使用hexo</code></p>
-</li>
-<li><p>会生出一个.md文件</p>
-</li>
-<li><p>在这个文件中编辑.md文件. 该md文件的内容就是发布的博客.</p>
-</li>
-<li><p>重新启动<code>hexo s</code> 打开网页就可以看到新发表的文章.</p>
-<hr>
-<p>​</p>
-</li>
+<li>使用命令来发表新文章</li>
+<li><code>hexo new 学习使用hexo</code></li>
+<li>会生出一个.md文件</li>
+<li>在这个文件中编辑.md文件. 该md文件的内容就是发布的博客.</li>
+<li>重新启动<code>hexo s</code> 打开网页就可以看到新发表的文章.</li>
 </ul>
 <h2 id="3-主题安装"><a href="#3-主题安装" class="headerlink" title="3. 主题安装"></a>3. 主题安装</h2><ul>
 <li><p>许多第三方为hexo提供了主题, 我们可以搜索并使用.</p>
@@ -437,12 +1705,9 @@
 <li><p>并在分支提交到github上的gh-pages分支.</p>
 </li>
 <li><p>setting查看网址.</p>
-<hr>
-<p>​</p>
+<p>## </p>
 </li>
 </ul>
-</li>
-<li><p>基于用户的</p>
 </li>
 </ul>
 <h2 id="6-部署博客"><a href="#6-部署博客" class="headerlink" title="6. 部署博客"></a>6. 部署博客</h2><ul>
@@ -648,801 +1913,13 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/05/Bower的使用/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="海 龙 王">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="蓝 海">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/05/Bower的使用/" itemprop="url">Bower的使用</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-05T10:57:13+08:00">
-                2017-09-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Bower的使用"><a href="#Bower的使用" class="headerlink" title="Bower的使用"></a>Bower的使用</h1><h2 id="1-Bower简介"><a href="#1-Bower简介" class="headerlink" title="1 Bower简介"></a>1 Bower简介</h2><ul>
-<li><a href="http:bower.io" target="_blank" rel="external">Bower官网</a></li>
-<li>其功能和npm类似.利用bower可以管理插件/类库.是1个前端包管理工具.</li>
-<li>其直接从github下载.其依赖于git和npm</li>
-<li>Bower是1个前端的插件市场 npm是1个前后端的插件市场.</li>
-<li>npm <a href="https://www.npmjs.com/" target="_blank" rel="external">https://www.npmjs.com/</a></li>
-<li>bower  github</li>
-</ul>
-<h2 id="2-Bower安装"><a href="#2-Bower安装" class="headerlink" title="2. Bower安装"></a>2. Bower安装</h2><ul>
-<li>安装nodejs 拥有npm工具.</li>
-<li>安装git</li>
-<li>使用npm安装bower <code>npm install -g bower</code></li>
-</ul>
-<h2 id="3-Bower使用"><a href="#3-Bower使用" class="headerlink" title="3. Bower使用"></a>3. Bower使用</h2><ul>
-<li><p>可以在git bash中使用使用bower,也可以直接在命令行工具中使用bower</p>
-</li>
-<li><p>一般使用步骤</p>
-<ul>
-<li><p>初始化bower <code>bower init</code> 该命令用来在项目文件夹中初始化bower环境,生成配置文件.</p>
-</li>
-<li><p>使用<code>bower install xxx#.x.y.z --save</code>命令来进行安装.</p>
-<ul>
-<li><p>会在当前项目目录下生成1个<code>bower_components</code>目录,将包存储在其中.</p>
-</li>
-<li><p>指定下载目录的方式.</p>
-<ul>
-<li>新建<code>.bowerrc</code>文件</li>
-<li>//这里输入的是json格式的字符串,所以属性名需要加上引号</li>
-<li>`{“directory”:”app/vendor”}``<ul>
-<li>使用<code>bower uninstall xxx --save</code>命令来移除包</li>
-</ul>
-</li>
-</ul>
-<h2 id="4-Bower的特点"><a href="#4-Bower的特点" class="headerlink" title="4. Bower的特点"></a>4. Bower的特点</h2><ul>
-<li>如果A包依赖于B包.那么在下载A包的时候 会自动下载B包.</li>
-<li>在A包没有删除的情况下,无法删除B包.</li>
-<li>在删除A包的时候,如果无其他包依赖A 会连着A一起删除.否则不会删除A.</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/03/深复制和浅复制/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="海 龙 王">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="蓝 海">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/03/深复制和浅复制/" itemprop="url">深复制和浅复制</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-03T22:09:45+08:00">
-                2017-09-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li><h2 id="深复制复制的概念"><a href="#深复制复制的概念" class="headerlink" title="深复制复制的概念"></a>深复制复制的概念</h2></li>
-</ul>
-<blockquote>
-<p>简单来说深复制就是当遇到值是对象类型的时候就再运行一遍复制</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">function deepCopy (sub, sup) &#123;</div><div class="line">  for (var key in sup) &#123;</div><div class="line">    if (typeof sup[key] === &apos;object&apos;) &#123;</div><div class="line">      sub[key] = &#123;&#125;;</div><div class="line">      deepCopy (sub[key], sup[key]);</div><div class="line">    &#125; else &#123;</div><div class="line">      sub[key] = sup[key];</div><div class="line">    &#125; </div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li><h2 id="浅复制的概念"><a href="#浅复制的概念" class="headerlink" title="浅复制的概念"></a>浅复制的概念</h2></li>
-</ul>
-<blockquote>
-<p>现在想把对象A的值复制给B，由于对象A的两个值都是原始类型，用浅复制即可</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function copy(sub, sup) &#123;</div><div class="line">  for (var key in sup) &#123;</div><div class="line">    sub[key] = sup[key];</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">copy(objB, objA);</div></pre></td></tr></table></figure>
-<ul>
-<li><h2 id="浅复制的弊端"><a href="#浅复制的弊端" class="headerlink" title="浅复制的弊端"></a>浅复制的弊端</h2></li>
-</ul>
-<blockquote>
-<p>运行复制的函数时也可以复制成功，但是存在着一个潜在的风险，即当修改对象A的的b.c的值时，对象B也跟着改变了<br>。<strong>要是在多人协同的大项目中，其中一个人修改了一个对象的值会导致其他人的值全部改变，这显然不是我们想要的结果，于是需要进行深复制。</strong></p>
-</blockquote>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/03/gulp的使用/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="海 龙 王">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="蓝 海">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/03/gulp的使用/" itemprop="url">gulp的使用</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-03T20:18:08+08:00">
-                2017-09-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="gulp"><a href="#gulp" class="headerlink" title="gulp"></a>gulp</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">多个开发者共同开发一个项目，每位开发者负责不同的模块，</div><div class="line">这就会造成一个完整的项目实际上是由许多的“代码版段”组成的；</div><div class="line"></div><div class="line">使用less、sass等一些预处理程序，降低CSS的维护成本，最终需要将这些预处理程序进行解析；</div><div class="line"></div><div class="line">合并css、javascript，压缩html、css、javascript、images可以加速网页打开速度，提升性能；</div><div class="line">这一系列的任务完全靠手动完成几乎是不可能的，借助构建工具可以轻松实现。</div><div class="line">所谓构建工具是指通过简单配置就可以帮我们实现合并、压缩、校验、预处理等一系列任务的软件工具。</div><div class="line">常见的构建工具包括：Grunt、Gulp、F.I.S（百度出品）、webpack</div></pre></td></tr></table></figure>
-<h2 id="1-gulp简介"><a href="#1-gulp简介" class="headerlink" title="1. gulp简介"></a>1. gulp简介</h2><ul>
-<li>gulp这个软件是用nodejs写的.</li>
-<li>gulp是基于流的自动化构建工具</li>
-<li>网站开发完成之后,我们要做项目构建,完成之后才可以上线.</li>
-<li>项目构建:<ul>
-<li>代码压缩.html css js</li>
-<li>代码混淆</li>
-<li>文件合并</li>
-<li>等其它自动化工作. sass转换为css.</li>
-</ul>
-</li>
-<li>这就是gulp做的事情.</li>
-</ul>
-<h2 id="2-gulp安装"><a href="#2-gulp安装" class="headerlink" title="2. gulp安装"></a>2. gulp安装</h2><ul>
-<li><p>首先需要全局安装gulp,如果之前已经全局安装过,可以省略这步.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">npm install gulp -g </div><div class="line">global 全局安装. 会把该软件安装到系统目录中.</div><div class="line">我们使用npm下载插件,实际上是从https://www.npmjs.com/下载.</div><div class="line">全局安装的插件 可以在任意的地方使用.</div><div class="line">本地安装的插件 只能在当前项目中使用.</div><div class="line">使用gulp -v命令查看安装的gulp版本 如果可以看到就说明安装成功.</div></pre></td></tr></table></figure>
-</li>
-<li><p>还需要本地安装,在项目目录中.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install gulp --save</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="3-gulp使用"><a href="#3-gulp使用" class="headerlink" title="3. gulp使用"></a>3. gulp使用</h2><ul>
-<li><p>在项目目录中新建1个<code>gulpfile.js</code>文件.</p>
-</li>
-<li><p>在这个文件中写上构建代码.</p>
-</li>
-<li><p>先引入本地的<code>gulp</code>模块</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> gulp = <span class="built_in">require</span>(<span class="string">'gulp'</span>);</div><div class="line"><span class="comment">//这个gulp对象就可以配合插件来进行构建工作.</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="3-1-创建任务"><a href="#3-1-创建任务" class="headerlink" title="3.1 创建任务"></a>3.1 创建任务</h3><ul>
-<li><p>gulp是以任务的形式来执行每一项构建化工作.</p>
-</li>
-<li><p>调用gulp对象的task方法可以创建任务<br>参数1: 任务名称<br>参数2: 回调函数,执行该任务的时候,要做的事情.</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">gulp.task(<span class="string">"testTask"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log();</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-</li>
-<li><p>这个时候,我们就创建了1个任务<code>testTask</code>,该任务做的事情就是回调函数的事情.</p>
-</li>
-</ul>
-<h3 id="3-2-执行任务"><a href="#3-2-执行任务" class="headerlink" title="3.2 执行任务"></a>3.2 执行任务</h3><ul>
-<li><p>如何执行这个gulp任务呢?</p>
-</li>
-<li><p>打开cmd工具,切换工作路径到项目目录</p>
-</li>
-<li><p>在命令行窗口中使用<code>gulp 任务名称</code>就可以执行指定的任务.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gulp testTask</div></pre></td></tr></table></figure>
-</li>
-<li><p>这个时候,名叫<code>testTask</code>的任务就会被执行.</p>
-</li>
-</ul>
-<h2 id="4-压缩CSS-gulp-cssmin"><a href="#4-压缩CSS-gulp-cssmin" class="headerlink" title="4.压缩CSS gulp-cssmin"></a>4.压缩CSS <code>gulp-cssmin</code></h2><ul>
-<li><p>需要创建1个压缩css的任务.</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> cssmin = <span class="built_in">require</span>(<span class="string">"gulp-cssmin"</span>);</div><div class="line">gulp.task(<span class="string">"yscss"</span>,<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="comment">//1.这个任务是用来压缩css的.</span></div><div class="line">    <span class="comment">//  那么首先你需要指定需要压缩的css文件</span></div><div class="line">    <span class="comment">//  调用gulp对象的src方法,指定要处理的文件的路径.</span></div><div class="line">    gulp.src(<span class="string">"./src/assets/css/reset.css"</span>)</div><div class="line">        .pipe(cssmin())</div><div class="line">        .pipe(gulp.dest(<span class="string">"./dist/assets/css"</span>));</div><div class="line">    <span class="comment">//2.pipe()管道理解 阀门形象理解.</span></div><div class="line">    <span class="comment">//3.管道中每一个阀门做不同的事情.不同的事情需要插件来完成.</span></div><div class="line">    <span class="comment">//  压缩css的插件. gulp-cssmin</span></div><div class="line">    <span class="comment">//  安装插件,引入gulp-cssmin</span></div><div class="line">    <span class="comment">//  引入后,其实1个函数.</span></div><div class="line">    <span class="comment">//  将其在管道中调用,相当于在管道中设置了1个阀门.</span></div><div class="line">    <span class="comment">//4.管道最后1关,要调用gulp对象的dest方法,设置存放处理后的路径.</span></div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="5-文件监视-watch"><a href="#5-文件监视-watch" class="headerlink" title="5.文件监视 watch"></a>5.文件监视 <code>watch</code></h2><ul>
-<li><p>gulp对象提供了一个watch方法</p>
-</li>
-<li><p>该方法的作用,监视指定文件的变化,</p>
-</li>
-<li><p>一旦改动,就执行指定的任务</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">gulp.task(<span class="string">"watchCss"</span>,<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="comment">//监视指定的css文件.可以使用通配符,一旦文件发送变化,就自动执行yscss任务</span></div><div class="line">    gulp.watch(<span class="string">"./src/assets/css/reset.css"</span>,[<span class="string">"yscss"</span>]);</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-</li>
-<li><p>watch方法的第2个参数,还可以是1个回调.当文件发生变化以后,就执行这个回调.</p>
-</li>
-</ul>
-<h2 id="5-gulp-uglify-压缩js"><a href="#5-gulp-uglify-压缩js" class="headerlink" title="5.gulp-uglify 压缩js"></a>5.gulp-uglify 压缩js</h2><ul>
-<li><p>压缩混淆js代码,需要<code>gulp-uglify</code>插件支持.使用npm安装该插件.</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//1.引入gulp模块</span></div><div class="line"><span class="keyword">var</span> gulp = <span class="built_in">require</span>(<span class="string">"gulp"</span>);</div><div class="line"><span class="comment">//2.引入gulp-uglify模块.返回的是1个函数.</span></div><div class="line"><span class="keyword">var</span> uglify = <span class="built_in">require</span>(<span class="string">"gulp-uglify"</span>);</div><div class="line"><span class="comment">//3.新建任务</span></div><div class="line">gulp.task(<span class="string">"ysjs"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    gulp.src(<span class="string">"./js/app.js"</span>)</div><div class="line">        .pipe(uglify())</div><div class="line">        .pipe(gulp.dest(<span class="string">"./dist/js"</span>));</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="6-gulp-concat-合并文件"><a href="#6-gulp-concat-合并文件" class="headerlink" title="6.gulp-concat 合并文件"></a>6.gulp-concat 合并文件</h2><ul>
-<li><p>文件合并需要使用到 <code>gulp-concat</code>插件支持.使用npm安装该插件.</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">gulp.task(<span class="string">"concatFile"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    gulp.src([<span class="string">"./src/js/app.js"</span>,<span class="string">"./src/js/demo.js"</span>])</div><div class="line">    .pipe(concat(<span class="string">"all.js"</span>))<span class="comment">//将待处理的文件进行合并,合并后的新文件的名称为 all.js</span></div><div class="line">    .pipe(uglify())<span class="comment">//再混淆</span></div><div class="line">    .pipe(gulp.dest(<span class="string">"./dist/js"</span>));</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="7-gulp-htmlmin-压缩html文件"><a href="#7-gulp-htmlmin-压缩html文件" class="headerlink" title="7.gulp-htmlmin 压缩html文件"></a>7.gulp-htmlmin 压缩html文件</h2><ul>
-<li><p>压缩html代码需要使用到 <code>gulp-htmlmin</code>插件支持.使用npm安装该插件.</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">gulp.task(<span class="string">"yshtml"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    gulp.src(<span class="string">"./src/index.html"</span>)</div><div class="line"> 	<span class="comment">//注意这里传递对象参数</span></div><div class="line">    .pipe(htmlmin(&#123;</div><div class="line">        collapseWhitespace:<span class="literal">true</span>, <span class="comment">//去空格</span></div><div class="line">        removeComments:<span class="literal">true</span><span class="comment">//去注释</span></div><div class="line">    &#125;))</div><div class="line">    .pipe(gulp.dest(<span class="string">"./dist"</span>))</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="8-gulp-sass-将sass转换为-css"><a href="#8-gulp-sass-将sass转换为-css" class="headerlink" title="8.gulp-sass 将sass转换为 css"></a>8.gulp-sass 将sass转换为 css</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">gulp.task(<span class="string">"sass2css"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    gulp.src(<span class="string">"./src/css/index.scss"</span>)</div><div class="line">    .pipe(sass())</div><div class="line">    .pipe(cssmin())</div><div class="line">    .pipe(gulp.dest(<span class="string">"./dist/css"</span>));</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<h2 id="9-gulp-less-将less转换为-css"><a href="#9-gulp-less-将less转换为-css" class="headerlink" title="9. gulp-less 将less转换为 css"></a>9. gulp-less 将less转换为 css</h2><h2 id="10-gulp-imagemin-压缩图片"><a href="#10-gulp-imagemin-压缩图片" class="headerlink" title="10. gulp-imagemin 压缩图片"></a>10. gulp-imagemin 压缩图片</h2>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/03/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="海 龙 王">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="蓝 海">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/03/hello-world/" itemprop="url">Hello World</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-03T20:09:21+08:00">
-                2017-09-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/03/面向对象的设计/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="海 龙 王">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="蓝 海">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/03/03/面向对象的设计/" itemprop="url">面向对象-构造函数</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-03T22:42:59+08:00">
-                2017-03-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="面向对象封装"><a href="#面向对象封装" class="headerlink" title="面向对象封装"></a>面向对象封装</h2><h3 id="1-封装成对象-减少全局变量的污染"><a href="#1-封装成对象-减少全局变量的污染" class="headerlink" title="1. 封装成对象,减少全局变量的污染"></a>1. 封装成对象,减少全局变量的污染</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">//封装成一个对象,使所有li标签都变色</div><div class="line">//只使用了一个全局变量</div><div class="line">  var heiQuery = &#123;</div><div class="line">    domByName: function (domName) &#123;</div><div class="line">      return document.getElementsByTagName(domName);</div><div class="line">    &#125;,</div><div class="line">    becomeHotpink: function (eles) &#123;</div><div class="line">      for (var i = 0; i &lt; eles.length; i++) &#123;</div><div class="line">        eles[i].style.backgroundColor = &apos;hotpink&apos;;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  heiQuery.domByName();</div><div class="line">  heiQuery.becomeHotpink();</div></pre></td></tr></table></figure>
-<h3 id="2-创建对象的四种方式"><a href="#2-创建对象的四种方式" class="headerlink" title="2.创建对象的四种方式"></a>2.创建对象的四种方式</h3><ul>
-<li><p>使用字面量的方式创建</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var obj = &#123;</div><div class="line">    name:&quot;小明&quot;,</div><div class="line">    age:&quot;18&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>使用new关键字的方式.动态添加属性</p>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var person1 = new Object();</div><div class="line">person1.name = &apos;杨宗纬&apos;;</div><div class="line">person1.skill = &apos;吃洋葱&apos;;</div></pre></td></tr></table></figure>
-<ul>
-<li><p>工厂模式,传入参数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function objectFactory(name, skill) &#123;</div><div class="line">  var obj = new Object();</div><div class="line">  obj.name = name;</div><div class="line">  obj.skill = skill;</div><div class="line">  return obj;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>使用构造函数的方式</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function Person(name, skill) &#123;</div><div class="line">  this.name = name;</div><div class="line">  this.skill = skill;</div><div class="line">  // return 998;</div><div class="line">  // return &#123;name:&apos;黄鹤王八蛋&apos;,skill:&quot;带着小姨子跑啦&quot;&#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<blockquote>
-<ol>
-<li>注意使用构造函数时,return 基本数据类型时没有影响,返回复杂数据类型时,会覆盖new关键字创建的对象</li>
-<li><p>调用构造函数的过程<br> 创建了一个 对象<br> 把构造函数中的this 指向这个对象<br> 返回这个对象</p>
-</li>
-<li><p>当构造函数知识没有用new创建对象的时候,当做普通函数调用,this指代的是window</p>
-</li>
-</ol>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var p1 = new Person(&apos;jack&apos;,&apos;jump&apos;);</div><div class="line">//this指代的是先创建的person对象</div><div class="line">var p2 = Person(&apos;rose&apos;,&apos;炒青椒&apos;);</div><div class="line">//tihs指代window</div></pre></td></tr></table></figure>
-<h3 id="使用构造函数创建对象的缺点"><a href="#使用构造函数创建对象的缺点" class="headerlink" title="使用构造函数创建对象的缺点"></a>使用构造函数创建对象的缺点</h3><ul>
-<li>使用同一个构造函数创建的对象,对象中的方法指向不一致</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">function Person() &#123;</div><div class="line">  this.sayHi = function()&#123;</div><div class="line">    console.log(&apos;吃了没--(吃不吃我都不会请你吃)&apos;);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">var p1 = new Person();</div><div class="line">var p2 = new Person();</div><div class="line"></div><div class="line">console.log(p1.sayHi===p2.sayHi);//false</div></pre></td></tr></table></figure>
-<ul>
-<li>解决方案<blockquote>
-<p>在声明一个全局函数方法,让属性同时指向这个函数</p>
-</blockquote>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function sayHi()&#123;</div><div class="line">  console.log(&apos;how old are you&apos;);</div><div class="line">&#125;</div><div class="line">function Person() &#123;</div><div class="line">  this.sayHi = sayHi;</div><div class="line">&#125;</div><div class="line"> console.log(p1.sayHi===p2.sayHi);//true</div></pre></td></tr></table></figure>
-<blockquote>
-<p>缺点: 会产生多的全局变量</p>
-</blockquote>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
 
 
           </div>
@@ -1486,7 +1963,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">14</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
