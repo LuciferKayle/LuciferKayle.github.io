@@ -273,6 +273,221 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/07/require-js知识/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="海 龙 王">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1504711192&di=202256a71fef64a84ab3454c1a600250&src=http://img.mp.itc.cn/upload/20160616/78bff10afc2f46319d5679b832050c9f_th.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="蓝 海">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/07/require-js知识/" itemprop="url">require.js知识</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-07T22:20:12+08:00">
+                2017-09-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="RequireJS：是一个基于原生js实现的模块化解决方案"><a href="#RequireJS：是一个基于原生js实现的模块化解决方案" class="headerlink" title="RequireJS：是一个基于原生js实现的模块化解决方案"></a>RequireJS：是一个基于原生js实现的模块化解决方案</h1><h2 id="模块化"><a href="#模块化" class="headerlink" title="模块化"></a>模块化</h2><h3 id="模块化是什么？"><a href="#模块化是什么？" class="headerlink" title="模块化是什么？"></a>模块化是什么？</h3><ul>
+<li>具有实现一个完整功能的整体<br>-</li>
+</ul>
+<h3 id="为什么要使用模块化"><a href="#为什么要使用模块化" class="headerlink" title="为什么要使用模块化?"></a>为什么要使用模块化?</h3><ul>
+<li><p>为了更好地复用</p>
+</li>
+<li><p>减少全局变量污染<br>var KTV=(function(){</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> leastPrice=<span class="number">1000</span>;</div><div class="line"><span class="keyword">var</span> total=<span class="number">0</span>;</div><div class="line"></div><div class="line"><span class="keyword">return</span> &#123;</div><div class="line">    pay:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="keyword">if</span>(total&gt;=leastPrice)&#123;</div><div class="line">            alert(<span class="string">"买单成功"</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>})()</p>
+</li>
+<li><p>解决功能之间的依赖关系</p>
+</li>
+</ul>
+<h3 id="模块化的实现方式"><a href="#模块化的实现方式" class="headerlink" title="模块化的实现方式"></a>模块化的实现方式</h3><h4 id="使用闭包来实现"><a href="#使用闭包来实现" class="headerlink" title="使用闭包来实现"></a>使用闭包来实现</h4><ul>
+<li>闭包实现存在的缺点<ul>
+<li>随着功能的增加，暴露的全局变量也会越来越多<ul>
+<li>requireJS几乎没有全局变量</li>
+</ul>
+</li>
+<li>不能很好的解决模块依赖的问题</li>
+</ul>
+</li>
+</ul>
+<h4 id="使用主流的一些实现模块化的库来实现"><a href="#使用主流的一些实现模块化的库来实现" class="headerlink" title="使用主流的一些实现模块化的库来实现"></a>使用主流的一些实现模块化的库来实现</h4><ul>
+<li>requireJS–&gt;AMD规范<ul>
+<li>seaJS–&gt;CMD规范 ：玉伯</li>
+</ul>
+</li>
+<li>browserify</li>
+<li>webpack(后面的课程)</li>
+<li>mv*框架<ul>
+<li>angular vue backbone avalon</li>
+</ul>
+</li>
+<li>组件化<ul>
+<li>react /react native /ionic</li>
+</ul>
+</li>
+</ul>
+<h3 id="AMD规范和CMD规范"><a href="#AMD规范和CMD规范" class="headerlink" title="AMD规范和CMD规范"></a>AMD规范和CMD规范</h3><p>AMD规范就是指requireJS</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">--&gt;async module define：异步模块定义(异步加载模块、依赖前置)</div><div class="line">    --&gt;模块定义和导入(使用)</div><div class="line">    --&gt;异步加载模块</div><div class="line">    --&gt;依赖前置：把所有依赖的模块放在文件的头部</div></pre></td></tr></table></figure>
+<p>CMD规范就是指的seajs</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">--&gt;common module define：通用模块定义(同步加载模块)</div><div class="line">    --&gt;同步加载模块</div><div class="line">    --&gt;依赖就近：50行代码使用商品模块的功能，就在49行依赖商品模块</div></pre></td></tr></table></figure>
+<p>CommonJS规范：nodeJS</p>
+<h2 id="requireJS"><a href="#requireJS" class="headerlink" title="requireJS"></a>requireJS</h2><p>requireJS/angular/vue都是适用于：单页应用：Single Page Application(SPA)</p>
+<h3 id="requireJS这种模块化解决方案称之为AMD规范"><a href="#requireJS这种模块化解决方案称之为AMD规范" class="headerlink" title="requireJS这种模块化解决方案称之为AMD规范"></a>requireJS这种模块化解决方案称之为AMD规范</h3><ul>
+<li>AMD：async module define：异步模块定义</li>
+<li>与之非常相似的有CMD规范–&gt;sea.js(玉伯)<ul>
+<li>CMD：common module define(–&gt;借鉴了nodeJS中的CommonJS规范)</li>
+</ul>
+</li>
+<li>模块化规范：AMD CMD CommonJS</li>
+<li>模块化解决方案：requireJS seaJS browserify webpack</li>
+<li>MV*框架：angular / vue<ul>
+<li>MV*：mvc mvvm mvp</li>
+</ul>
+</li>
+<li>组件化开发：react</li>
+</ul>
+<h3 id="官方网站："><a href="#官方网站：" class="headerlink" title="官方网站："></a>官方网站：</h3><p>英文版：<a href="http://requirejs.org/" target="_blank" rel="external">http://requirejs.org/</a><br>中文版：<a href="http://www.requirejs.cn/" target="_blank" rel="external">http://www.requirejs.cn/</a><br>github：<a href="https://github.com/requirejs/requirejs" target="_blank" rel="external">https://github.com/requirejs/requirejs</a></p>
+<h3 id="入门"><a href="#入门" class="headerlink" title="入门"></a>入门</h3><ol>
+<li><p>下载requirejs文件</p>
+</li>
+<li><p>在需要使用requireJS的html页面中引入requirejs文件</p>
+</li>
+<li><p>编写js代码</p>
+<ul>
+<li>在a.js文件中通过来定义一个模块(tip:约定一个js文件就是一个模块)</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">define([],<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  <span class="comment">//模块内部的代码</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<ul>
+<li>在b.js文件中从而获取a.js中的代码，这样的话就可以保证在执行b.js中的代码之前先执行了a.js中的代码</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">require</span>([<span class="string">"a"</span>],<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line"></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="依赖注入：模块具有返回值："><a href="#依赖注入：模块具有返回值：" class="headerlink" title="依赖注入：模块具有返回值："></a>依赖注入：模块具有返回值：</h3><ol>
+<li>给定义模块的回调函数添加return语句</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//a.js文件中</span></div><div class="line">define(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="number">10</span>;</div><div class="line">&#125;)</div><div class="line"><span class="comment">//b.js文件中</span></div><div class="line">define(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> &#123;<span class="attr">name</span>:<span class="string">"张三"</span>&#125;;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<ol>
+<li>在获取模块的时候，通过require()的第二个参数来依次获取各个模块的返回值</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">require</span>([<span class="string">"./a.js"</span>,<span class="string">"./b.js"</span>],<span class="function"><span class="keyword">function</span>(<span class="params">a,b</span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(a);<span class="comment">//10</span></div><div class="line">    <span class="built_in">console</span>.log(b.name);<span class="comment">//"张三"</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h3 id="入口文件"><a href="#入口文件" class="headerlink" title="入口文件"></a>入口文件</h3><p>通过给引入requirejs时的script标签添加data-main属性值，那么requirejs就会自动加载该文件(模块)，可以通过该文件来进行访问其他的模块</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"require.js"</span> <span class="attr">data-main</span>=<span class="string">"./main"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="如何检测第三方库是否支持AMD规范？"><a href="#如何检测第三方库是否支持AMD规范？" class="headerlink" title="如何检测第三方库是否支持AMD规范？"></a>如何检测第三方库是否支持AMD规范？</h3><p>查看源代码，看看是否有以下内容？如果有，说明支持AMD规范，如果没有说明不支持</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (<span class="keyword">typeof</span> define === <span class="string">"function"</span> &amp;&amp; define.amd) &#123;&#125;</div></pre></td></tr></table></figure>
+<h3 id="路径-加载模块时遵循的规则"><a href="#路径-加载模块时遵循的规则" class="headerlink" title="路径(加载模块时遵循的规则)"></a>路径(加载模块时遵循的规则)</h3><ul>
+<li>如果没有入口文件，加载模块时的路径以引入requirejs时的路径为准(优先级最低)</li>
+<li>如果有入口文件，加载模块的路径以入口文件所在目录为准(优先级次高)</li>
+<li>通过配置来自定义路径(优先级最高)</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">require</span>.config(&#123;</div><div class="line">    <span class="comment">//这里的baseUrl还是相对于html文件</span></div><div class="line">    baseUrl:<span class="string">""</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h3 id="配置常用的模块路径-比如：jquery-arttemplate"><a href="#配置常用的模块路径-比如：jquery-arttemplate" class="headerlink" title="配置常用的模块路径(比如：jquery/arttemplate)"></a>配置常用的模块路径(比如：jquery/arttemplate)</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">require</span>.config(&#123;</div><div class="line">    baseUrl:<span class="string">"./lib"</span>,</div><div class="line">    paths:&#123;</div><div class="line">        <span class="comment">//路径不需要.js后缀，最终该文件的路径将会和baseUrl拼接，也就是："./lib/js/jquery-2.1.4"</span></div><div class="line">        jquery:<span class="string">"js/jquery-2.1.4"</span></div><div class="line">    &#125;</div><div class="line">&#125;)</div><div class="line"><span class="comment">//a.js文件中</span></div><div class="line">define([<span class="string">"jquery"</span>],<span class="function"><span class="keyword">function</span>(<span class="params">$</span>)</span>&#123;</div><div class="line">    <span class="comment">//这里请求的jquery也就是去上面paths中设置的jquery进行查找,也就是："./lib/js/jquery-2.1.4"</span></div><div class="line"></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h3 id="如果一个js文件不支持AMD这种模块定义规范-比如bootstrap-js-，但是它又依赖于我们定义的模块-jquery-，通过以下方式来解决"><a href="#如果一个js文件不支持AMD这种模块定义规范-比如bootstrap-js-，但是它又依赖于我们定义的模块-jquery-，通过以下方式来解决" class="headerlink" title="如果一个js文件不支持AMD这种模块定义规范(比如bootstrap.js)，但是它又依赖于我们定义的模块(jquery)，通过以下方式来解决"></a>如果一个js文件不支持AMD这种模块定义规范(比如bootstrap.js)，但是它又依赖于我们定义的模块(jquery)，通过以下方式来解决</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">require</span>.config(&#123;</div><div class="line">    baseUrl:<span class="string">"./lib"</span>,</div><div class="line">    paths:&#123;</div><div class="line">        <span class="comment">//路径不需要.js后缀，最终该文件的路径将会和baseUrl拼接，也就是："./lib/js/jquery-2.1.4"</span></div><div class="line">        jquery:<span class="string">"js/jquery-2.1.4"</span>,</div><div class="line">        bootstrap:<span class="string">"assets/bootstrap/bootstrap"</span></div><div class="line">    &#125;,</div><div class="line">    shim:&#123;</div><div class="line">        bootstrap:&#123;</div><div class="line">            <span class="comment">//这样在请求bootstrap的时候会自动去请求jquery模块</span></div><div class="line">            deps:[<span class="string">"jquery"</span>]</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/06/原型的三角关系/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1772,147 +1987,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/05/浏览器打开服务器同步插件/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="海 龙 王">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1504711192&di=202256a71fef64a84ab3454c1a600250&src=http://img.mp.itc.cn/upload/20160616/78bff10afc2f46319d5679b832050c9f_th.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="蓝 海">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/05/浏览器打开服务器同步插件/" itemprop="url">浏览器打开服务器同步插件</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-05T11:00:12+08:00">
-                2017-09-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Browser-sync"><a href="#Browser-sync" class="headerlink" title="Browser-sync"></a>Browser-sync</h1><h2 id="1-Browser-sync简介"><a href="#1-Browser-sync简介" class="headerlink" title="1.Browser-sync简介"></a>1.Browser-sync简介</h2><ul>
-<li>当代码发生改变以后,浏览器就自动刷新.</li>
-<li>这是<code>browser-sync</code>提供的最主要的功能</li>
-</ul>
-<h2 id="2-browser-sync安装"><a href="#2-browser-sync安装" class="headerlink" title="2.browser-sync安装"></a>2.browser-sync安装</h2><ul>
-<li><code>npm install browser-sync -g</code> 使用该命令全局安装.<ul>
-<li><code>-dev</code>参数作用: 代表该插件是供开发阶段使用,并不是给用户使用的.</li>
-</ul>
-</li>
-</ul>
-<h2 id="3-browser-sync使用"><a href="#3-browser-sync使用" class="headerlink" title="3.browser-sync使用"></a>3.browser-sync使用</h2><ul>
-<li>在项目文件夹中执行命令<code>browser-sync start --server --files &quot;指定要监视的文件&quot;</code></li>
-<li>这个时候,会启动服务 自动打开网页</li>
-<li>当我们修改代码 保存的时候 浏览器就会自动刷新.</li>
-<li>files参数可以使用通配符,也可以指定多个需要监视的文件.文件名之间使用逗号分隔.</li>
-</ul>
-<h2 id="4-浏览器兼容性测试"><a href="#4-浏览器兼容性测试" class="headerlink" title="4.浏览器兼容性测试."></a>4.浏览器兼容性测试.</h2><ul>
-<li>浏览器操作将会被同步.</li>
-</ul>
-<h2 id="5-browser-sync后台"><a href="#5-browser-sync后台" class="headerlink" title="5.browser-sync后台"></a>5.browser-sync后台</h2><ul>
-<li>可以设置具体的同步参数.</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1963,7 +2037,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
