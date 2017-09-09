@@ -95,9 +95,9 @@
 
 
 <meta name="description" content="RequireJS：是一个基于原生js实现的模块化解决方案模块化模块化是什么？ 具有实现一个完整功能的整体-  为什么要使用模块化? 为了更好地复用  减少全局变量污染var KTV=(function(){ 12345678910var leastPrice=1000;var total=0;return &amp;#123;    pay:function()&amp;#123;        if(tota">
-<meta property="og:type" content="article">
+<meta property="og:type" content="website">
 <meta property="og:title" content="require.js知识">
-<meta property="og:url" content="http://yoursite.com/2017/09/07/require-js知识/index.html">
+<meta property="og:url" content="http://yoursite.com/tools/require-js知识.html">
 <meta property="og:site_name" content="蓝 海">
 <meta property="og:description" content="RequireJS：是一个基于原生js实现的模块化解决方案模块化模块化是什么？ 具有实现一个完整功能的整体-  为什么要使用模块化? 为了更好地复用  减少全局变量污染var KTV=(function(){ 12345678910var leastPrice=1000;var total=0;return &amp;#123;    pay:function()&amp;#123;        if(tota">
 <meta property="og:locale" content="zh-Hans">
@@ -133,7 +133,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/09/07/require-js知识/"/>
+  <link rel="canonical" href="http://yoursite.com/tools/require-js知识.html"/>
 
 
 
@@ -260,86 +260,24 @@
 
   <div id="posts" class="posts-expand">
     
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/07/require-js知识/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="海 龙 王">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="蓝 海">
-    </span>
-
     
+    
+    <div class="post-block page">
       <header class="post-header">
 
-        
-        
-          <h1 class="post-title" itemprop="name headline">require.js知识</h1>
-        
+	<h1 class="post-title" itemprop="name headline">require.js知识</h1>
 
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-07T22:20:12+08:00">
-                2017-09-07
-              </time>
-            
 
-            
 
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
+</header>
 
       
       
-
       
-        <h1 id="RequireJS：是一个基于原生js实现的模块化解决方案"><a href="#RequireJS：是一个基于原生js实现的模块化解决方案" class="headerlink" title="RequireJS：是一个基于原生js实现的模块化解决方案"></a>RequireJS：是一个基于原生js实现的模块化解决方案</h1><h2 id="模块化"><a href="#模块化" class="headerlink" title="模块化"></a>模块化</h2><h3 id="模块化是什么？"><a href="#模块化是什么？" class="headerlink" title="模块化是什么？"></a>模块化是什么？</h3><ul>
+      <div class="post-body">
+        
+        
+          <h1 id="RequireJS：是一个基于原生js实现的模块化解决方案"><a href="#RequireJS：是一个基于原生js实现的模块化解决方案" class="headerlink" title="RequireJS：是一个基于原生js实现的模块化解决方案"></a>RequireJS：是一个基于原生js实现的模块化解决方案</h1><h2 id="模块化"><a href="#模块化" class="headerlink" title="模块化"></a>模块化</h2><h3 id="模块化是什么？"><a href="#模块化是什么？" class="headerlink" title="模块化是什么？"></a>模块化是什么？</h3><ul>
 <li>具有实现一个完整功能的整体<br>-</li>
 </ul>
 <h3 id="为什么要使用模块化"><a href="#为什么要使用模块化" class="headerlink" title="为什么要使用模块化?"></a>为什么要使用模块化?</h3><ul>
@@ -436,57 +374,15 @@
 <h3 id="配置常用的模块路径-比如：jquery-arttemplate"><a href="#配置常用的模块路径-比如：jquery-arttemplate" class="headerlink" title="配置常用的模块路径(比如：jquery/arttemplate)"></a>配置常用的模块路径(比如：jquery/arttemplate)</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">require</span>.config(&#123;</div><div class="line">    baseUrl:<span class="string">"./lib"</span>,</div><div class="line">    paths:&#123;</div><div class="line">        <span class="comment">//路径不需要.js后缀，最终该文件的路径将会和baseUrl拼接，也就是："./lib/js/jquery-2.1.4"</span></div><div class="line">        jquery:<span class="string">"js/jquery-2.1.4"</span></div><div class="line">    &#125;</div><div class="line">&#125;)</div><div class="line"><span class="comment">//a.js文件中</span></div><div class="line">define([<span class="string">"jquery"</span>],<span class="function"><span class="keyword">function</span>(<span class="params">$</span>)</span>&#123;</div><div class="line">    <span class="comment">//这里请求的jquery也就是去上面paths中设置的jquery进行查找,也就是："./lib/js/jquery-2.1.4"</span></div><div class="line"></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 <h3 id="如果一个js文件不支持AMD这种模块定义规范-比如bootstrap-js-，但是它又依赖于我们定义的模块-jquery-，通过以下方式来解决"><a href="#如果一个js文件不支持AMD这种模块定义规范-比如bootstrap-js-，但是它又依赖于我们定义的模块-jquery-，通过以下方式来解决" class="headerlink" title="如果一个js文件不支持AMD这种模块定义规范(比如bootstrap.js)，但是它又依赖于我们定义的模块(jquery)，通过以下方式来解决"></a>如果一个js文件不支持AMD这种模块定义规范(比如bootstrap.js)，但是它又依赖于我们定义的模块(jquery)，通过以下方式来解决</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">require</span>.config(&#123;</div><div class="line">    baseUrl:<span class="string">"./lib"</span>,</div><div class="line">    paths:&#123;</div><div class="line">        <span class="comment">//路径不需要.js后缀，最终该文件的路径将会和baseUrl拼接，也就是："./lib/js/jquery-2.1.4"</span></div><div class="line">        jquery:<span class="string">"js/jquery-2.1.4"</span>,</div><div class="line">        bootstrap:<span class="string">"assets/bootstrap/bootstrap"</span></div><div class="line">    &#125;,</div><div class="line">    shim:&#123;</div><div class="line">        bootstrap:&#123;</div><div class="line">            <span class="comment">//这样在请求bootstrap的时候会自动去请求jquery模块</span></div><div class="line">            deps:[<span class="string">"jquery"</span>]</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 
+        
+      </div>
+      
+      
       
     </div>
     
     
     
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2017/09/06/原型的三角关系/" rel="next" title="原型的三角关系">
-                <i class="fa fa-chevron-left"></i> 原型的三角关系
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
   </div>
 
 
@@ -709,10 +605,10 @@
 
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
 
-
+  
 
   
 

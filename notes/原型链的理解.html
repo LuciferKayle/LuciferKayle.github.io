@@ -94,17 +94,19 @@
 
 
 
-<meta name="description" content="Browser-sync1.Browser-sync简介 当代码发生改变以后,浏览器就自动刷新. 这是browser-sync提供的最主要的功能  2.browser-sync安装 npm install browser-sync -g 使用该命令全局安装. -dev参数作用: 代表该插件是供开发阶段使用,并不是给用户使用的.    3.browser-sync使用 在项目文件夹中执行命令brow">
-<meta property="og:type" content="article">
-<meta property="og:title" content="浏览器打开服务器同步插件">
-<meta property="og:url" content="http://yoursite.com/2017/09/05/浏览器打开服务器同步插件/index.html">
+<meta name="description" content="原型链的定义 对象都有原型,原型也是对象,对象就会有原型的,这样一直延伸下去,就组成了原型链 原型链的是有尽头的,尽头是Object.prototype,顶级对象为null 从无到有(null-OBject的原型) 制造对象的机器(Array,Number,String等) 制造机器的机器(构造函数)   鸡生蛋,蛋生鸡的问题12Function.__proto__ === Function.pr">
+<meta property="og:type" content="website">
+<meta property="og:title" content="原型链的理解">
+<meta property="og:url" content="http://yoursite.com/notes/原型链的理解.html">
 <meta property="og:site_name" content="蓝 海">
-<meta property="og:description" content="Browser-sync1.Browser-sync简介 当代码发生改变以后,浏览器就自动刷新. 这是browser-sync提供的最主要的功能  2.browser-sync安装 npm install browser-sync -g 使用该命令全局安装. -dev参数作用: 代表该插件是供开发阶段使用,并不是给用户使用的.    3.browser-sync使用 在项目文件夹中执行命令brow">
+<meta property="og:description" content="原型链的定义 对象都有原型,原型也是对象,对象就会有原型的,这样一直延伸下去,就组成了原型链 原型链的是有尽头的,尽头是Object.prototype,顶级对象为null 从无到有(null-OBject的原型) 制造对象的机器(Array,Number,String等) 制造机器的机器(构造函数)   鸡生蛋,蛋生鸡的问题12Function.__proto__ === Function.pr">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-09-05T03:01:07.605Z">
+<meta property="og:image" content="http://mmbiz.qpic.cn/mmbiz_jpg/zPh0erYjkib3qzmYGpdYCFxhaD73XiatbiaoK7mia2oCAVgs4BWcLodHLYKcK50goIaPOdUIM4T5icj7PQTsJ95ZHJg/640?tp=webp&wxfrom=5&wx_lazy=1">
+<meta property="og:updated_time" content="2017-09-06T12:33:09.273Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="浏览器打开服务器同步插件">
-<meta name="twitter:description" content="Browser-sync1.Browser-sync简介 当代码发生改变以后,浏览器就自动刷新. 这是browser-sync提供的最主要的功能  2.browser-sync安装 npm install browser-sync -g 使用该命令全局安装. -dev参数作用: 代表该插件是供开发阶段使用,并不是给用户使用的.    3.browser-sync使用 在项目文件夹中执行命令brow">
+<meta name="twitter:title" content="原型链的理解">
+<meta name="twitter:description" content="原型链的定义 对象都有原型,原型也是对象,对象就会有原型的,这样一直延伸下去,就组成了原型链 原型链的是有尽头的,尽头是Object.prototype,顶级对象为null 从无到有(null-OBject的原型) 制造对象的机器(Array,Number,String等) 制造机器的机器(构造函数)   鸡生蛋,蛋生鸡的问题12Function.__proto__ === Function.pr">
+<meta name="twitter:image" content="http://mmbiz.qpic.cn/mmbiz_jpg/zPh0erYjkib3qzmYGpdYCFxhaD73XiatbiaoK7mia2oCAVgs4BWcLodHLYKcK50goIaPOdUIM4T5icj7PQTsJ95ZHJg/640?tp=webp&wxfrom=5&wx_lazy=1">
 
 
 
@@ -133,13 +135,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/09/05/浏览器打开服务器同步插件/"/>
+  <link rel="canonical" href="http://yoursite.com/notes/原型链的理解.html"/>
 
 
 
 
 
-  <title>浏览器打开服务器同步插件 | 蓝 海</title>
+  <title>原型链的理解 | 蓝 海</title>
   
 
 
@@ -260,163 +262,83 @@
 
   <div id="posts" class="posts-expand">
     
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/05/浏览器打开服务器同步插件/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="海 龙 王">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="蓝 海">
-    </span>
-
     
+    
+    <div class="post-block page">
       <header class="post-header">
 
-        
-        
-          <h1 class="post-title" itemprop="name headline">浏览器打开服务器同步插件</h1>
-        
+	<h1 class="post-title" itemprop="name headline">原型链的理解</h1>
 
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-05T11:00:12+08:00">
-                2017-09-05
-              </time>
-            
 
-            
 
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
+</header>
 
       
       
-
       
-        <h1 id="Browser-sync"><a href="#Browser-sync" class="headerlink" title="Browser-sync"></a>Browser-sync</h1><h2 id="1-Browser-sync简介"><a href="#1-Browser-sync简介" class="headerlink" title="1.Browser-sync简介"></a>1.Browser-sync简介</h2><ul>
-<li>当代码发生改变以后,浏览器就自动刷新.</li>
-<li>这是<code>browser-sync</code>提供的最主要的功能</li>
-</ul>
-<h2 id="2-browser-sync安装"><a href="#2-browser-sync安装" class="headerlink" title="2.browser-sync安装"></a>2.browser-sync安装</h2><ul>
-<li><code>npm install browser-sync -g</code> 使用该命令全局安装.<ul>
-<li><code>-dev</code>参数作用: 代表该插件是供开发阶段使用,并不是给用户使用的.</li>
-</ul>
+      <div class="post-body">
+        
+        
+          <h2 id="原型链的定义"><a href="#原型链的定义" class="headerlink" title="原型链的定义"></a>原型链的定义</h2><ol>
+<li>对象都有原型,原型也是对象,对象就会有原型的,这样一直延伸下去,就组成了原型链</li>
+<li>原型链的是有尽头的,尽头是Object.prototype,顶级对象为null</li>
+<li>从无到有(null-OBject的原型)</li>
+<li>制造对象的机器(Array,Number,String等)</li>
+<li>制造机器的机器(构造函数)<br><img src="http://mmbiz.qpic.cn/mmbiz_jpg/zPh0erYjkib3qzmYGpdYCFxhaD73XiatbiaoK7mia2oCAVgs4BWcLodHLYKcK50goIaPOdUIM4T5icj7PQTsJ95ZHJg/640?tp=webp&amp;wxfrom=5&amp;wx_lazy=1" alt="原型链图的解释"></li>
+</ol>
+<ul>
+<li><h2 id="鸡生蛋-蛋生鸡的问题"><a href="#鸡生蛋-蛋生鸡的问题" class="headerlink" title="鸡生蛋,蛋生鸡的问题"></a>鸡生蛋,蛋生鸡的问题</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Function</span>.__proto__ === <span class="built_in">Function</span>.prototype</div><div class="line"><span class="built_in">Object</span>作为一个机器可以看做是有由<span class="built_in">Function</span>制造出来的，而<span class="built_in">Function</span>作为一个对象可以看做是由<span class="built_in">Object</span>制造出来的。</div></pre></td></tr></table></figure>
 </li>
 </ul>
-<h2 id="3-browser-sync使用"><a href="#3-browser-sync使用" class="headerlink" title="3.browser-sync使用"></a>3.browser-sync使用</h2><ul>
-<li>在项目文件夹中执行命令<code>browser-sync start --server --files &quot;指定要监视的文件&quot;</code></li>
-<li>这个时候,会启动服务 自动打开网页</li>
-<li>当我们修改代码 保存的时候 浏览器就会自动刷新.</li>
-<li>files参数可以使用通配符,也可以指定多个需要监视的文件.文件名之间使用逗号分隔.</li>
-</ul>
-<h2 id="4-浏览器兼容性测试"><a href="#4-浏览器兼容性测试" class="headerlink" title="4.浏览器兼容性测试."></a>4.浏览器兼容性测试.</h2><ul>
-<li>浏览器操作将会被同步.</li>
-</ul>
-<h2 id="5-browser-sync后台"><a href="#5-browser-sync后台" class="headerlink" title="5.browser-sync后台"></a>5.browser-sync后台</h2><ul>
-<li>可以设置具体的同步参数.</li>
-</ul>
+<blockquote>
+<p>注意在es6中引入了class类的概念,箭头函数只能表示普通函数,不能表示构造函数</p>
+</blockquote>
+<p><a href="http://mp.weixin.qq.com/s/8h-7pRKYNYex5hImZNgipQ" target="_blank" rel="external">原型链的原文解释</a></p>
+<h2 id="对象属性的查找顺序"><a href="#对象属性的查找顺序" class="headerlink" title="对象属性的查找顺序"></a>对象属性的查找顺序</h2><ol>
+<li>对象本身的属性就存在–&gt;直接使用自己的属性</li>
+<li>自己的属性中不存在,那就使用.<strong>proto</strong>去查找</li>
+<li>自己的原型中没有,那就沿着原型链继续向上查找</li>
+<li>顶部Object.prototype还是查找不到,就会报错</li>
+</ol>
+<h2 id="Object的原型常见的属性"><a href="#Object的原型常见的属性" class="headerlink" title="Object的原型常见的属性"></a>Object的原型常见的属性</h2><ol>
+<li><p>hasOwnProperty(),返回值是true或false</p>
+<blockquote>
+<p>检测对象自身是否存在某个属性,继承的属性不能检测, in 关键字可以检测对象的所有属性,包括继承的属性</p>
+</blockquote>
+</li>
+<li><p>isPrototypeOf,返回值false或者true</p>
+<blockquote>
+<p>检测对象a 是不是b的原型</p>
+</blockquote>
+</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">skill</span>)</span>&#123;</div><div class="line">    <span class="keyword">this</span>.skill = skill;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> p = <span class="keyword">new</span> Person(<span class="string">"修电脑"</span>);</div><div class="line"><span class="built_in">console</span>.log(Person.prototype.isPrototypeOf(p))<span class="comment">//true</span></div></pre></td></tr></table></figure>
+<ol>
+<li>propertyIsEnumerable ,属性能否被遍历</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> (<span class="keyword">var</span> k <span class="keyword">in</span> p) &#123;</div><div class="line">  <span class="built_in">console</span>.log(k);</div><div class="line">&#125;</div><div class="line"><span class="built_in">console</span>.log(p.propertyIsEnumerable(<span class="string">'skill'</span>));</div></pre></td></tr></table></figure>
+<ol>
+<li><p>toString,toLocaleString对象转化为字符串</p>
+<blockquote>
+<p>toString 本地的<br>toLocaleString本地化相关的,可以测试data</p>
+</blockquote>
+</li>
+<li><p>valueOf</p>
+<blockquote>
+<p>复杂数据类型跟普通数据类型进行运算时会调用 对象的 valueOf() 看看是否可以运算<br>如果还是不能运算 会接着调用 toSting()方法</p>
+</blockquote>
+</li>
+</ol>
 
+        
+      </div>
+      
+      
       
     </div>
     
     
     
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2017/09/05/Bower的使用/" rel="next" title="Bower的使用">
-                <i class="fa fa-chevron-left"></i> Bower的使用
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/09/05/hexo使用/" rel="prev" title="hexo使用">
-                hexo使用 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
   </div>
 
 
@@ -513,7 +435,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Browser-sync"><span class="nav-number">1.</span> <span class="nav-text">Browser-sync</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Browser-sync简介"><span class="nav-number">1.1.</span> <span class="nav-text">1.Browser-sync简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-browser-sync安装"><span class="nav-number">1.2.</span> <span class="nav-text">2.browser-sync安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-browser-sync使用"><span class="nav-number">1.3.</span> <span class="nav-text">3.browser-sync使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-浏览器兼容性测试"><span class="nav-number">1.4.</span> <span class="nav-text">4.浏览器兼容性测试.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-browser-sync后台"><span class="nav-number">1.5.</span> <span class="nav-text">5.browser-sync后台</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#原型链的定义"><span class="nav-number">1.</span> <span class="nav-text">原型链的定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#鸡生蛋-蛋生鸡的问题"><span class="nav-number">2.</span> <span class="nav-text">鸡生蛋,蛋生鸡的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象属性的查找顺序"><span class="nav-number">3.</span> <span class="nav-text">对象属性的查找顺序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Object的原型常见的属性"><span class="nav-number">4.</span> <span class="nav-text">Object的原型常见的属性</span></a></li></ol></div>
             
 
           </div>
@@ -639,10 +561,10 @@
 
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
 
-
+  
 
   
 

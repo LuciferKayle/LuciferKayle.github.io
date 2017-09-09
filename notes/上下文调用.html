@@ -95,9 +95,9 @@
 
 
 <meta name="description" content="数组循环的两种方式 forEach  123456789// 回调函数的参数// 1.当前循环的元素// 2.当前循环元素的 索引// 3.当前循环的 数组//无返回值cartoonArr.forEach(function(value,index,arr)&amp;#123;  // console.log(&apos;我被执行了&apos;);  console.log(value,index,arr);&amp;#125;)">
-<meta property="og:type" content="article">
+<meta property="og:type" content="website">
 <meta property="og:title" content="上下文调用">
-<meta property="og:url" content="http://yoursite.com/2017/09/06/上下文调用/index.html">
+<meta property="og:url" content="http://yoursite.com/notes/上下文调用.html">
 <meta property="og:site_name" content="蓝 海">
 <meta property="og:description" content="数组循环的两种方式 forEach  123456789// 回调函数的参数// 1.当前循环的元素// 2.当前循环元素的 索引// 3.当前循环的 数组//无返回值cartoonArr.forEach(function(value,index,arr)&amp;#123;  // console.log(&apos;我被执行了&apos;);  console.log(value,index,arr);&amp;#125;)">
 <meta property="og:locale" content="zh-Hans">
@@ -133,7 +133,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/09/06/上下文调用/"/>
+  <link rel="canonical" href="http://yoursite.com/notes/上下文调用.html"/>
 
 
 
@@ -260,86 +260,24 @@
 
   <div id="posts" class="posts-expand">
     
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/06/上下文调用/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="海 龙 王">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="蓝 海">
-    </span>
-
     
+    
+    <div class="post-block page">
       <header class="post-header">
 
-        
-        
-          <h1 class="post-title" itemprop="name headline">上下文调用</h1>
-        
+	<h1 class="post-title" itemprop="name headline">上下文调用</h1>
 
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-06T20:17:34+08:00">
-                2017-09-06
-              </time>
-            
 
-            
 
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
+</header>
 
       
       
-
       
-        <h2 id="数组循环的两种方式"><a href="#数组循环的两种方式" class="headerlink" title="数组循环的两种方式"></a>数组循环的两种方式</h2><ol>
+      <div class="post-body">
+        
+        
+          <h2 id="数组循环的两种方式"><a href="#数组循环的两种方式" class="headerlink" title="数组循环的两种方式"></a>数组循环的两种方式</h2><ol>
 <li>forEach</li>
 </ol>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 回调函数的参数</span></div><div class="line"><span class="comment">// 1.当前循环的元素</span></div><div class="line"><span class="comment">// 2.当前循环元素的 索引</span></div><div class="line"><span class="comment">// 3.当前循环的 数组</span></div><div class="line"><span class="comment">//无返回值</span></div><div class="line">cartoonArr.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">value,index,arr</span>)</span>&#123;</div><div class="line">  <span class="comment">// console.log('我被执行了');</span></div><div class="line">  <span class="built_in">console</span>.log(value,index,arr);</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
@@ -399,61 +337,15 @@
 </ol>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> realArr2 = [];</div><div class="line"><span class="comment">// apply这种方法调用是 第二个参数 如果是 伪数组,数组 会把 元素 挨个 传递到 调用的方法的 参数中</span></div><div class="line"><span class="comment">// 这里的作用是 把 fakeArr的元素 挨个放到 push的 参数中 简化 操作</span></div><div class="line">realArr2.push.apply(realArr2,fakeArr);</div><div class="line"><span class="built_in">console</span>.log(realArr2);</div></pre></td></tr></table></figure>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 求数组最大值</span></div><div class="line"><span class="keyword">var</span> numArr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">12</span>,<span class="number">6</span>,<span class="number">2</span>,<span class="number">30</span>];</div><div class="line"></div><div class="line"><span class="comment">// 如何获取最大值</span></div><div class="line"><span class="built_in">console</span>.log(<span class="built_in">Math</span>.max(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>));</div><div class="line"><span class="comment">// 能够在调用 Math.max时 挨个传入 numArr的元素</span></div><div class="line"><span class="built_in">console</span>.log(<span class="built_in">Math</span>.max.apply(<span class="built_in">Math</span>,numArr));</div></pre></td></tr></table></figure>
+        
+      </div>
+      
+      
       
     </div>
     
     
     
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2017/09/06/闭包知识讲解/" rel="next" title="闭包知识讲解">
-                <i class="fa fa-chevron-left"></i> 闭包知识讲解
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/09/06/作用域问题/" rel="prev" title="作用域问题">
-                作用域问题 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
   </div>
 
 
@@ -676,10 +568,10 @@
 
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
 
-
+  
 
   
 
